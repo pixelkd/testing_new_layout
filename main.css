@@ -587,10 +587,14 @@ main {
     }
 
     .header {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
         align-items: center;
-        padding: 5px 10px;
-        height: auto; /* Allows content to dictate height */
+        justify-content: space-between;
+        padding: 10px 15px;
+        height: auto; /* Auto height based on content */
+        background-color: #181818; /* Ensures it's solid */
+        border-bottom: var(--thin-border);
     }
 
     /* Adjust inner header for stacking */
@@ -603,31 +607,49 @@ main {
 
         /* Center logo and email */
     .logo-container {
+        display: flex;
         flex-direction: column;
-        text-align: center;
-        gap: 2px;
+        align-items: flex-start;
+        gap: 3px; /* Minimal spacing between elements */
+    }
+
+    .email {
+        font-size: 14px; /* Adjust size for mobile */
+        font-weight: 500;
+        color: var(--text-color);
     }
 
     /* Ensure navigation appears below the logo */
     .nav-bar {
-        width: 100%;
-        justify-content: center;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: auto;
     }
 
     /* Mobile menu adjustments */
     .navigation {
-        flex-direction: column;
-        gap: 10px;
         display: none;
-        width: 100%;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 10px;
+        background-color: #181818;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1000;
     }
 
+    .navigation.active {
+        display: flex;
+    }
+    
     /* Mobile menu toggle */
     .menu-toggle {
         display: flex;
         flex-direction: column;
         cursor: pointer;
-        gap: 5px;
+        gap: 4px;
     }
 
     .menu-toggle .bar {

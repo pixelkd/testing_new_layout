@@ -1,24 +1,129 @@
+/* ================================
+   🌙 DARK CINEMATIC THEME - GLOBAL STYLES
+   ================================ */
+
+/* 🎨 Root Variables */
 :root {
-    --boarders: 1px solid rgb(61, 61, 61);
-    --backgroundA: #333;
+    --font-primary: 'IBM Plex Sans', sans-serif;
+
+    /* 🌑 Dark Theme Colors */
+    --bg-color: #121212;  /* Main dark background */
+    --text-color: #DDD;   /* Soft white for comfortable reading */
+    --border-color: #444; /* Subtle dividers */
+    
+    /* 🔘 Button Colors */
+    --button-bg: #222;         /* Neutral button color */
+    --button-border: #666;     /* Thin border for buttons */
+    --button-hover: #333;      /* Slightly lighter hover effect */
+    --restart-button: #B22222; /* Deep red for restart button */
+
+    /* 🖼️ Other */
+    --spacing: 16px; /* Base spacing unit */
+    --thin-border: 1px solid var(--border-color);
 }
 
-*{
+
+/* ================================
+   🌍 UNIVERSAL RESET
+   ================================ */
+   * {
     margin: 0;
     padding: 0;
-    list-style: none;
-    text-decoration: none;
-
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    
+    box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+/* ================================
+   🖥️ BASE HTML & BODY STYLING
+   ================================ */
 body {
-    height: 100vh;
-    display: grid;
-    grid-template-rows: 100px 1fr 60px;
-    overflow: hidden;
+    font-family: var(--font-primary);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* Remove default list styling */
+ul, ol {
+    list-style: none;
+}
+
+/* Default anchor styles */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ================================
+   🎭 TYPOGRAPHY BASE STYLES
+   ================================ */
+   h1, h2, h3, h4, h5, h6 {
+    font-weight: 800;
+}
+
+p {
+    font-weight: 400;
+}
+
+/* ================================
+   🏗️ LAYOUT CONTAINERS
+   ================================ */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* ================================
+   🔘 BUTTON BASE STYLES
+   ================================ */
+   button {
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: var(--thin-border);
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background: var(--button-hover);
+}
+
+#restart {
+    background: var(--restart-button);
+    color: white;
+    border: none;
+}
+
+#restart:hover {
+    background: #8B1A1A;
+}
+
+/* ================================
+   📌 UTILITY CLASSES (Reusable)
+   ================================ */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
 }
 
 
@@ -27,157 +132,184 @@ body {
 /* =============================
    Header & Navigation
    ============================= */
-.header {
-    width: 100%;
-    background-color: var(--backgroundA);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
 
-.inner-header {
+/* Header */
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 10px 20px;
+    width: 100%;
+    background-color: var(--secondary-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: var(--header-height);
+    z-index: 1000;
 }
 
-.logo-container h1 {
-    font-size: 30px;
-    font-weight: 200;
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
 }
 
-.logo-container h1 span {
-    font-weight: 800;
+.email {
+    font-size: var(--font-size-medium);
+    font-weight: 500;
+    color: var(--text-color);
 }
 
-.logo-container .email {
-    font-size: 20px;
-    font-weight: 100;
-}
-
+/* Navigation */
 .nav-bar {
     display: flex;
     align-items: center;
+    flex-grow: 2;
+    justify-content: flex-end;
 }
 
 .navigation {
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
-.navigation li a {
-    color: white;
-    font-size: 18px;
-    transition: color 0.3s;
+.navigation a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: var(--font-size-medium);
+    transition: color var(--transition-speed);
 }
 
-.navigation li a:hover {
-    color: lightgray;
+.navigation a:hover {
+    color: #fff;
 }
 
-/* Mobile menu */
 .menu-toggle {
     display: none;
+    flex-direction: column;
     cursor: pointer;
+    gap: 5px;
 }
 
 .menu-toggle .bar {
-    display: block;
-    height: 4px;
     width: 25px;
-    background-color: white;
-    margin: 4px 0;
-    transition: 0.3s;
+    height: 3px;
+    background-color: var(--text-color);
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap;
+    }
+
+    .logo-container {
+        flex-grow: 1;
+    }
     
+    .nav-bar {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .navigation {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: var(--header-height);
+        right: 10px;
+        background-color: var(--secondary-bg);
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .navigation.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
 }
 
+/* ================================
+   🖥️ DESKTOP LAYOUT
+   ================================ */
 
-
-
-/* =============================
-   Main Content
-   ============================= */
-
+/* 📌 MAIN CONTAINER LAYOUT */
 main {
-    background-color: black;
-    display: grid;
-    grid-template-columns: 250px 1fr; /* Default: Aside on left */
-    gap: 20px;
-    padding: 10 px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 90vw; /* Ensures it scales well on larger screens */
+    padding: 2vw; /* Adjust padding dynamically */
+    margin: auto;
+    padding: var(--spacing);
 }
 
-
-
-
-/* =============================
-        Sidebar
-   ============================= */
+/* ================================
+   📂 PROJECT SELECTION (SIDEBAR)
+   ================================ */
+   .project-selection {
+    flex: 1;
+    max-width: 300px; /* Slightly larger on wider screens */
+}
 
 .article_list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-right: var(--borders);
-    background-color: #222;
-    padding: 15px;
-    
-    overflow: auto; /* Allows scrolling within the article list */
+    background: #181818; /* Slightly lighter than the main background */
+    padding: var(--spacing);
+    border-radius: 8px;
+    border: var(--thin-border);
 }
 
+
 .article_list h2 {
-    font-size: 20px;
-    font-weight: 200;
-    text-align: center;
-    border-bottom: var(--borders);
-    padding-bottom: 10px;
-    color: white;
+    font-size: 18px;
+    margin-bottom: var(--spacing);
 }
 
 .article_list_items {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    
+    gap: 10px;
 }
 
+/* Project selection item */
 .article_list_item {
-    background: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #222;
     padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+    border-radius: 4px;
+    transition: transform 0.2s ease-in-out;
 }
 
 /* Hover Effect */
 .article_list_item:hover {
-    background: #444; /* Slightly lighter background */
-    transform: scale(1.03); /* Slight enlargement */
+    transform: scale(1.05);
 }
 
-/* Subtle shadow effect */
-.article_list_item:hover {
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
-}
-
-.article_img {
+.article_list_item img {
     width: 100%;
     height: auto;
-    border-radius: 5px;
-    
+    border-radius: 4px;
+}
+
+.article_list_item h3 {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 8px;
 }
 
 
-.articl_list_item h3 {
-    font-size: 18px;
-    font-weight: 200;
-    
-}
 
+/* -- remove scoll bars later? -- */
 /* ---- Scroll bars ---- */
 .article_list::-webkit-scrollbar {
     width: 6px;  /* Thin scrollbar for vertical mode */
@@ -210,38 +342,32 @@ main {
 
 
 
-/* =============================
-   Slideshow & Hero Section
-   ============================= */
+/* ================================
+   🎞️ MAIN SLIDESHOW AREA
+   ================================ */
    .hero {
-    display: grid;
-    grid-template-rows: 60px 80% 1fr;
-    width: 100%;
-    padding: 1rem;
-    box-sizing: border-box;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing);
 }
 
-/* Project Title */
+
+/* Project title above slideshow */
 .project_title {
     text-align: center;
-    width: 100%;
-    padding-bottom: 5px;
-    border-bottom: solid 1px #444;
+    font-size: 20px;
+    border-bottom: var(--thin-border);
+    padding-bottom: 8px;
 }
 
-/* Stage Container */
+/* Expandable Slideshow Container */
 .stage_container {
-    display: grid;
-    margin: 10px auto;
-    grid-template-rows: auto 1fr auto;
-    gap: 10px;
-    width: 80%;
-    background-color: #222222;
-    border-radius: 10px;
-    max-height: 1400px;
-    
-
-    
+    width: 100%;
+    max-width: 1200px; /* Allow it to grow up to 1200px on large screens */
+    min-width: 500px;  /* Prevent it from getting too small */
+    padding: 2vw;
 }
 
 /* Instructions at the top */
@@ -250,75 +376,76 @@ main {
 }
 
 
-/* Stage Section */
 .stage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
- 
+    width: 100%;
+    overflow: hidden;
+    border-radius: 6px;
 }
 
 /* Image inside the Stage */
 
 
+/* Scale the Image Properly */
 .stage img {
-
-    max-width: 98%;
-    max-height: 98%;
-
-    width: auto;
+    width: 100%;
     height: auto;
+    max-height: 80vh; /* Allow images to scale but not take up the entire viewport */
+    object-fit: contain;
 }
 
-/* Controls at the bottom */
+/* Slideshow Navigation Buttons */
 .controls {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 10px;
-    padding: 10px;
-}
-
-/* Additional Project Items */
-.additional_project_items {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
-    border-top: solid 1px #444;
-    padding-top: 15px;
+    margin-top: var(--spacing);
+}
+
+
+
+/* ================================
+   🏗️ ADDITIONAL PROJECT ITEMS
+   ================================ */
+.additional_project_items {
+    max-width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: var(--spacing);
 }
 
 .project_item {
+    background: #222;
+    padding: 10px;
+    border-radius: 4px;
+    transition: transform 0.2s ease-in-out;
     text-align: center;
-    max-width: 200px;
+    max-width: 150px;
 }
 
-.project_item_img {
+.project_item img {
     width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 4px;
+}
+
+.project_item h3 {
+    font-size: 14px;
+    margin-top: 8px;
 }
 
 
-
-button {
-    padding: 8px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #444;
-    color: white;
-    border: none;
-    border-radius: 5px;
+/* Hover Effect */
+.project_item:hover {
+    transform: scale(1.05);
 }
 
-button:hover {
-    background-color: #666;
-}
 
 /* Individual buttons */
 #prev {
-    visibility: hidden;
+    
 }
 
 /* Individual buttons */
@@ -328,36 +455,46 @@ button:hover {
 
 /* Individual buttons */
 #restart {
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 
-/* =============================
-   Footer Styles
-   ============================= */
-footer {
-    border-top: 1px solid #444;
-    background-color: var(--backgroundA);
-    color: white;
-    text-align: center;
-    padding: 15px 0;
+/* ================================
+   🔻 FOOTER STYLING FOR LARGE SCREENS
+   ================================ */
+   footer {
     width: 100%;
+    text-align: center;
+    padding: 1.5vw;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #181818;
+    border-top: var(--thin-border);
 }
 
 /* Container for footer content */
 .footer-container {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: space-between;
+    max-width: 90vw;
+    margin: auto;
     flex-wrap: wrap;
 }
 
 /* Footer sections */
 .footer-section {
     flex: 1;
+    min-width: 200px;
     text-align: center;
+    padding: 10px;
+}
+
+.footer-section.social img {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s ease-in-out;
 }
 
 /* Ensure links look good */
@@ -386,179 +523,159 @@ footer {
     transform: scale(1.1);
 }
 
-/* Responsive Layout */
-@media (max-width: 1100px) {
-    .footer-section {
-        font-size: 10px;
-        margin-bottom: 10px;
+
+
+
+
+
+
+
+
+/* Ensure Additional Items Scale for Ultra-Wide Screens */
+@media screen and (min-width: 2560px) { /* 4K+ */
+    .additional_project_items {
+        gap: 30px; /* Increase spacing */
+    }
+
+    .project_item {
+        max-width: 200px; /* Make items slightly larger */
+    }
+}
+
+@media screen and (min-width: 3840px) { /* 8K+ */
+    .stage_container {
+        width: 50vw; /* Adjust width for extremely large screens */
+        max-width: 2000px;
+    }
+
+    .additional_project_items {
+        gap: 40px; /* Further spacing increase */
+    }
+
+    .project_item {
+        max-width: 250px; /* Increase size of additional items */
     }
 }
 
 
 
 
+/* ================================
+   📱 MOBILE RESPONSIVE STYLES
+   ================================ */
 
-/* =============================
-   Responsive Styles
-   ============================= */
+   @media (max-width: 768px) {
 
-/*-------   Vertical Styles  -------*/
-   @media (max-aspect-ratio: 1/1) {
-    /* Switch main layout to vertical */
+    /* 🔄 MAIN LAYOUT ADJUSTMENTS */
     main {
-        display: grid;
-        grid-template-rows: auto 1fr; /* Moves aside to the top */
-        grid-template-columns: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0;
     }
 
-    /* Make the aside horizontal */
+    /* 🔄 PROJECT SELECTION (TOP BAR MODE) */
+    .project-selection {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto; /* Enables horizontal scrolling */
+        white-space: nowrap; /* Keeps items in a single row */
+        display: flex;
+        justify-content: center;
+        background: #181818;
+        padding: 10px;
+        border-bottom: var(--thin-border);
+    }
+
     .article_list {
         display: flex;
         flex-direction: row;
+        gap: 10px;
+        padding: 0;
+        border: none;
         overflow-x: auto;
-        overflow-y: hidden;
-        white-space: nowrap;
-        max-height: 170px; /* Increased height */
-        width: 100%;
-        padding: 10px;
-        
-        border-right: none;
-        box-sizing: border-box;
-        padding-bottom: 15px; /* Ensures scrollbar does not overlap */
     }
 
-        /* Reduce the scrollbar thickness */
-    .article_list::-webkit-scrollbar {
-            height: 6px; /* Makes scrollbar thinner */
-    }
-
-    .article_list::-webkit-scrollbar-thumb {
-        background: #555; /* Scrollbar color */
-        border-radius: 3px;
-    }
-
-    .article_list::-webkit-scrollbar-track {
-        background: #222; /* Background of the scrollbar */
-    }
-
-    .article_list h2 {
-        display: none; /* Optional: Hide the heading to save space */
-    }
-
-    /* Make individual articles fit horizontally */
-    /* Make individual articles fit horizontally */
     .article_list_items {
         display: flex;
         flex-direction: row;
-        gap: 15px;
-        justify-content: space-between;
-        padding-bottom: 5px; /* Pushes items above scrollbar */
+        gap: 10px;
     }
 
     .article_list_item {
-        min-width: 150px;
-        max-width: 200px;
-        text-align: center;
-        overflow: hidden;
-        flex-shrink: 0;
+        width: 100px; /* Keeps thumbnails compact */
+        min-width: 100px; /* Prevents shrinking */
     }
-    .article_list h3 {
-        font-size: 14px;
-    }
-    .article_img {
-        max-width: 85%;
+
+    .article_list_item img {
+        width: 100%;
         height: auto;
     }
 
-
-}
-
-
-/* =============================
-   By canvas Width
-   ============================= */
-
-
-/*-------   768  -------*/
-@media (max-width: 768px) {
-    main {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .navigation {
-        display: none;
-        flex-direction: column;
-        background-color:#444;
-        position: absolute;
-        top: 100px;
-        right: 0;
-        width: 60%;
-        padding: 10px;
-    }
-
-    .navigation.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        padding: 10px;
-        display: block;
-    }
-
-    .article_list {
-        width: 100%;
-        overflow-x: auto;
-        display: flex;
-        flex-direction: row;
-        max-height: 180px; /* Set a max height for better control */
-    }
-
+    /* 🔄 SLIDESHOW AREA */
     .hero {
         width: 100%;
+        max-width: 100%;
+        padding: 10px;
     }
-    
+
+    .stage_container {
+        width: 95%;
+        max-width: 600px; /* Adjusts size for mobile screens */
+        padding: 15px;
+    }
+
+    .stage img {
+        max-height: 70vh; /* Prevents images from taking over too much space */
+    }
+
+    /* 🔄 BUTTONS & NAVIGATION */
+    .controls {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    /* 🔄 ADDITIONAL PROJECT ITEMS */
+    .additional_project_items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .project_item {
+        width: 120px; /* Keeps project items uniform */
+        min-width: 120px;
+        text-align: center;
+    }
+
+    .project_item img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 🔄 FOOTER ADJUSTMENTS */
+    footer {
+        position: relative; /* Ensures it doesn't overlap */
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
     .footer-section {
-        font-size: 10px;
-        margin-bottom: 10px;
-    }
-
-    .footer-section.social a {
-        display: inline-block;
-        margin: 5px;
+        padding: 5px;
     }
 }
-
-/*-------   660  -------*/
-@media (max-width: 660px) {
-    .footer-section.contact {
-        display: none;
-    }
-}
-
-/*-------   460  -------*/
-@media (max-width: 460px){
-    .logo-container h1 {
-        font-size: 25px;
-    }
-}
-
-/*-------   400  -------*/
-@media (max-width: 400px){
-    .logo-container h1 {
-        font-size: 20px;
-    }
-
-    .logo-container .email {
-        font-size: 10px;
-        font-weight: 100;
-    }
-}
-
-/*-------   300  -------*/
-@media (max-width: 300px) {
-    .footer-section.social {
-        display: none;
-    }
-}
-

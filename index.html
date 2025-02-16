@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jason B Wilson - Portfolio</title>
-    <link href = "https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="main.css">
 </head>
 
@@ -32,50 +33,54 @@
 
     
 <main>
-    <aside class="article_list">
-        <h2>Storyboards List</h2>
-        
-        
-        <div class="article_list_items">
+    <div class = "project-selection">
+        <aside class="article_list">
+            <h2>Storyboards List</h2>
+            
+            
+            <div class="article_list_items"> <!-- Keep this list between 2 and 4 -->
+                <!-- These items will be dynamically loaded into the hero area when clicked -->
+                <!-- item 1-->
+                <a>
+                <div class="article_list_item">
+                    <img src="images/BC_LC_card.jpg" alt="1" class="article_img">
+                    <h3>Big Cat Little Cat</h3>
+                </div>
+                </a>
 
-            <div class="article_list_item">
-                <img src="images/BC_LC_card.jpg" alt="1" class="article_img">
-                <h3>Big Cat Little Cat</h3>
-            </div>
+                <!-- item 2-->
+                <a>
+                <div class="article_list_item">
+                    <img src="images/mt_card.jpg" alt="1" class="article_img">
+                    <h3>Midnight Theater</h3>
+                </div>
+                </a>
 
-            <div class="article_list_item">
-                <img src="images/mt_card.jpg" alt="1" class="article_img">
-                <h3>Midnight Theater</h3>
-            </div>
+                <!-- item 3-->
+                <a>
+                <div class="article_list_item">
+                    <img src="images/t1.jpg" alt="1" class="article_img">
+                    <h3>Title</h3>
+                </div>
+                </a>
 
-            <div class="article_list_item">
-                <img src="images/t1.jpg" alt="1" class="article_img">
-                <h3>Title</h3>
+                <!-- item 4-->
+                <a>
+                <div class="article_list_item">
+                    <img src="images/t2.jpg" alt="2" class="article_img">
+                    <h3>Another Title</h3>
+                </div>
+                </a>
             </div>
-
-            <div class="article_list_item">
-                <img src="images/t2.jpg" alt="2" class="article_img">
-                <h3>Another Title</h3>
-            </div>
-
-            <div class="article_list_item">
-                <img src="images/t3.jpg" alt="2" class="article_img">
-                <h3>Another Title</h3>
-            </div>
-
-            <div class="article_list_item">
-                <img src="images/t4.jpg" alt="2" class="article_img">
-                <h3>Another Title</h3>
-            </div>
-        </div>
-    </aside>
+        </aside>
+    </div>
 
     <div class="hero">
         <div class="project_title"><h2>Project Title Here</h2></div> <!-- Centered above stage container -->
 
                 
         <div class="stage_container">
-            <div class = "instructions"><p>Instructions</p></div> <!-- Centered above stage -->
+            <div class = "instructions"><p>Use the Navigations buttons, click the image, swipe, or use the scroll wheel to advance through the slideshow.</p></div> <!-- Centered above stage -->
                 
             <div class = "stage">
                 <img src="images/BC_LC_card.jpg" alt="1" class="project_img">
@@ -89,6 +94,7 @@
         </div>
     
         <div class="additional_project_items"> <!-- Centered below stage container -->
+            <!-- Keep this list between 2 and 4 -->
             <div class="project_item">
                 <img src="images/t3.jpg" alt="2" class="project_item_img">
                 <h3>View project Item</h3>

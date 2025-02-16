@@ -481,6 +481,11 @@ footer {
 
 /*-------   768  -------*/
 @media (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
     .navigation {
         display: none;
         flex-direction: column;
@@ -501,7 +506,18 @@ footer {
         display: block;
     }
 
+    .article_list {
+        width: 100%;
+        overflow-x: auto;
+        display: flex;
+        flex-direction: row;
+        max-height: 180px; /* Set a max height for better control */
+    }
 
+    .hero {
+        width: 100%;
+    }
+    
     .footer-section {
         font-size: 10px;
         margin-bottom: 10px;

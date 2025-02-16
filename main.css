@@ -138,27 +138,35 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
     width: 100%;
-    background-color: var(--secondary-bg);
-    border-bottom: 1px solid var(--border-color);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: var(--header-height);
+    background-color: #181818; /* Ensures it's not transparent */
+    border-bottom: var(--thin-border);
+    padding: 10px 20px;
+    height: 60px; /* Sets a standard height */
+    position: relative; /* Prevents overlaying */
     z-index: 1000;
 }
 
+/* Ensure Logo, Email, and Navigation Stay in Line */
+.inner-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Logo and Email Styling */
 .logo-container {
+    font-size: 10px;
     display: flex;
     align-items: center;
     gap: 20px;
-    flex-grow: 1;
 }
 
 .email {
-    font-size: var(--font-size-medium);
+    font-size: 18px;
     font-weight: 500;
+
     color: var(--text-color);
 }
 
@@ -166,24 +174,26 @@ button:hover {
 .nav-bar {
     display: flex;
     align-items: center;
-    flex-grow: 2;
     justify-content: flex-end;
+    flex-grow: 1;
+    white-space: nowrap;
 }
 
 .navigation {
     display: flex;
     gap: 20px;
+    flex-wrap: nowrap; /* Prevents wrapping */
 }
 
 .navigation a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: var(--font-size-medium);
-    transition: color var(--transition-speed);
+    font-size: 16px;
+    transition: color 0.3s;
 }
 
 .navigation a:hover {
-    color: #fff;
+    color: white;
 }
 
 .menu-toggle {

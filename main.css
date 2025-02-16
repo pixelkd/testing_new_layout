@@ -30,6 +30,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 html {
@@ -643,7 +644,7 @@ main {
     .navigation.active {
         display: flex;
     }
-    
+
     /* Mobile menu toggle */
     .menu-toggle {
         display: flex;
@@ -662,7 +663,7 @@ main {
     .navigation.active {
         display: flex;
     }
-}
+
 
     /* 🔄 FIX: Project Selection (Ensure it Behaves Like a Top Bar) */
     .project-selection {
@@ -779,3 +780,4 @@ main {
         padding: 5px;
     }
 }
+

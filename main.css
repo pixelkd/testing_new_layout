@@ -613,7 +613,34 @@ main {
         width: 100%;
         justify-content: center;
     }
-    
+
+    /* Mobile menu adjustments */
+    .navigation {
+        flex-direction: column;
+        gap: 10px;
+        display: none;
+        width: 100%;
+    }
+
+    /* Mobile menu toggle */
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    .menu-toggle .bar {
+        width: 25px;
+        height: 3px;
+        background-color: var(--text-color);
+    }
+
+    /* Show menu when active */
+    .navigation.active {
+        display: flex;
+    }
+}
 
     /* 🔄 FIX: Project Selection (Ensure it Behaves Like a Top Bar) */
     .project-selection {

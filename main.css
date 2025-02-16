@@ -586,6 +586,35 @@ main {
         padding: 0;
     }
 
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 5px 10px;
+        height: auto; /* Allows content to dictate height */
+    }
+
+    /* Adjust inner header for stacking */
+    .inner-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 5px;
+    }
+
+        /* Center logo and email */
+    .logo-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2px;
+    }
+
+    /* Ensure navigation appears below the logo */
+    .nav-bar {
+        width: 100%;
+        justify-content: center;
+    }
+    
+
     /* 🔄 FIX: Project Selection (Ensure it Behaves Like a Top Bar) */
     .project-selection {
         width: 100%;

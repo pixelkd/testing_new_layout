@@ -1,0 +1,548 @@
+:root {
+    --boarders: 1px solid rgb(61, 61, 61);
+    --backgroundA: #333;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 100px 1fr 60px;
+    overflow: hidden;
+}
+
+
+
+
+/* =============================
+   Header & Navigation
+   ============================= */
+.header {
+    width: 100%;
+    background-color: var(--backgroundA);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.inner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.logo-container h1 {
+    font-size: 30px;
+    font-weight: 200;
+}
+
+.logo-container h1 span {
+    font-weight: 800;
+}
+
+.logo-container .email {
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    gap: 15px;
+}
+
+.navigation li a {
+    color: white;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.navigation li a:hover {
+    color: lightgray;
+}
+
+/* Mobile menu */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    display: block;
+    height: 4px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
+    transition: 0.3s;
+    
+}
+
+
+
+
+/* =============================
+   Main Content
+   ============================= */
+
+main {
+    background-color: black;
+    display: grid;
+    grid-template-columns: 250px 1fr; /* Default: Aside on left */
+    gap: 20px;
+    padding: 10 px;
+    overflow: hidden;
+}
+
+
+
+
+/* =============================
+        Sidebar
+   ============================= */
+
+.article_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: var(--borders);
+    background-color: #222;
+    padding: 15px;
+    
+    overflow: auto; /* Allows scrolling within the article list */
+}
+
+.article_list h2 {
+    font-size: 20px;
+    font-weight: 200;
+    text-align: center;
+    border-bottom: var(--borders);
+    padding-bottom: 10px;
+    color: white;
+}
+
+.article_list_items {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+}
+
+.article_list_item {
+    background: #333;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.article_list_item:hover {
+    background: #444; /* Slightly lighter background */
+    transform: scale(1.03); /* Slight enlargement */
+}
+
+/* Subtle shadow effect */
+.article_list_item:hover {
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.article_img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    
+}
+
+
+.articl_list_item h3 {
+    font-size: 18px;
+    font-weight: 200;
+    
+}
+
+/* ---- Scroll bars ---- */
+.article_list::-webkit-scrollbar {
+    width: 6px;  /* Thin scrollbar for vertical mode */
+    height: 6px; /* Thin scrollbar for horizontal mode */
+}
+
+.article_list::-webkit-scrollbar-thumb {
+    background: #555; /* Scrollbar color */
+    border-radius: 3px;
+}
+
+.article_list::-webkit-scrollbar-track {
+    background: #222; /* Background of the scrollbar */
+}
+
+ /* Reduce the scrollbar thickness */
+.article_list::-webkit-scrollbar {
+    height: 6px; /* Makes scrollbar thinner */
+}
+
+.article_list::-webkit-scrollbar-thumb {
+    background: #555; /* Scrollbar color */
+    border-radius: 3px;
+}
+
+.article_list::-webkit-scrollbar-track {
+    background: #222; /* Background of the scrollbar */
+}
+
+
+
+
+/* =============================
+   Slideshow & Hero Section
+   ============================= */
+   .hero {
+    display: grid;
+    grid-template-rows: 60px 80% 1fr;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* Project Title */
+.project_title {
+    text-align: center;
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #444;
+}
+
+/* Stage Container */
+.stage_container {
+    display: grid;
+    margin: 10px auto;
+    grid-template-rows: auto 1fr auto;
+    gap: 10px;
+    width: 80%;
+    background-color: #222222;
+    border-radius: 10px;
+    max-height: 1400px;
+    
+
+    
+}
+
+/* Instructions at the top */
+.instructions {
+    text-align: center;
+}
+
+
+/* Stage Section */
+.stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+ 
+}
+
+/* Image inside the Stage */
+
+
+.stage img {
+
+    max-width: 98%;
+    max-height: 98%;
+
+    width: auto;
+    height: auto;
+}
+
+/* Controls at the bottom */
+.controls {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    padding: 10px;
+}
+
+/* Additional Project Items */
+.additional_project_items {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    border-top: solid 1px #444;
+    padding-top: 15px;
+}
+
+.project_item {
+    text-align: center;
+    max-width: 200px;
+}
+
+.project_item_img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+
+
+button {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+/* Individual buttons */
+#prev {
+    visibility: hidden;
+}
+
+/* Individual buttons */
+#next {
+    visibility: visible;
+}
+
+/* Individual buttons */
+#restart {
+    visibility: hidden;
+}
+
+
+/* =============================
+   Footer Styles
+   ============================= */
+footer {
+    border-top: 1px solid #444;
+    background-color: var(--backgroundA);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+}
+
+/* Container for footer content */
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* Footer sections */
+.footer-section {
+    flex: 1;
+    text-align: center;
+}
+
+/* Ensure links look good */
+.footer-section a {
+    color: lightgray;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+/* Social icons */
+.footer-section.social a {
+    margin: 0 10px;
+}
+
+.footer-section.social img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.footer-section.social img:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive Layout */
+@media (max-width: 1100px) {
+    .footer-section {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+
+
+
+
+/* =============================
+   Responsive Styles
+   ============================= */
+
+/*-------   Vertical Styles  -------*/
+   @media (max-aspect-ratio: 1/1) {
+    /* Switch main layout to vertical */
+    main {
+        display: grid;
+        grid-template-rows: auto 1fr; /* Moves aside to the top */
+        grid-template-columns: none;
+    }
+
+    /* Make the aside horizontal */
+    .article_list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        max-height: 170px; /* Increased height */
+        width: 100%;
+        padding: 10px;
+        
+        border-right: none;
+        box-sizing: border-box;
+        padding-bottom: 15px; /* Ensures scrollbar does not overlap */
+    }
+
+        /* Reduce the scrollbar thickness */
+    .article_list::-webkit-scrollbar {
+            height: 6px; /* Makes scrollbar thinner */
+    }
+
+    .article_list::-webkit-scrollbar-thumb {
+        background: #555; /* Scrollbar color */
+        border-radius: 3px;
+    }
+
+    .article_list::-webkit-scrollbar-track {
+        background: #222; /* Background of the scrollbar */
+    }
+
+    .article_list h2 {
+        display: none; /* Optional: Hide the heading to save space */
+    }
+
+    /* Make individual articles fit horizontally */
+    /* Make individual articles fit horizontally */
+    .article_list_items {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        justify-content: space-between;
+        padding-bottom: 5px; /* Pushes items above scrollbar */
+    }
+
+    .article_list_item {
+        min-width: 150px;
+        max-width: 200px;
+        text-align: center;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .article_list h3 {
+        font-size: 14px;
+    }
+    .article_img {
+        max-width: 85%;
+        height: auto;
+    }
+
+
+}
+
+
+/* =============================
+   By canvas Width
+   ============================= */
+
+
+/*-------   768  -------*/
+@media (max-width: 768px) {
+    .navigation {
+        display: none;
+        flex-direction: column;
+        background-color:#444;
+        position: absolute;
+        top: 100px;
+        right: 0;
+        width: 60%;
+        padding: 10px;
+    }
+
+    .navigation.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        padding: 10px;
+        display: block;
+    }
+
+
+    .footer-section {
+        font-size: 10px;
+        margin-bottom: 10px;
+    }
+
+    .footer-section.social a {
+        display: inline-block;
+        margin: 5px;
+    }
+}
+
+/*-------   660  -------*/
+@media (max-width: 660px) {
+    .footer-section.contact {
+        display: none;
+    }
+}
+
+/*-------   460  -------*/
+@media (max-width: 460px){
+    .logo-container h1 {
+        font-size: 25px;
+    }
+}
+
+/*-------   400  -------*/
+@media (max-width: 400px){
+    .logo-container h1 {
+        font-size: 20px;
+    }
+
+    .logo-container .email {
+        font-size: 10px;
+        font-weight: 100;
+    }
+}
+
+/*-------   300  -------*/
+@media (max-width: 300px) {
+    .footer-section.social {
+        display: none;
+    }
+}
+

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason B Wilson - Portfolio</title>
+    <link href = "https://fonts.googleapis.com/css?family=Montserrat:400,800" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<header class="header">
+    <div class="inner-header">
+        <div class="logo-container">
+            <h1 class="logo">Jason B Wilson <span>Portfolio</span></h1>
+            <h2 class="email">jasonbwilson.story@gmail.com</h2>
+        </div>
+
+        <nav class="nav-bar">
+            <ul class="navigation" id="nav-links">
+                <li><a href="#">Storyboards</a></li>
+                <li><a href="#">Comics</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </div>
+</header>
+
+    
+<main>
+    <aside class="article_list">
+        <h2>Storyboards List</h2>
+        
+        
+        <div class="article_list_items">
+
+            <div class="article_list_item">
+                <img src="images/BC_LC_card.jpg" alt="1" class="article_img">
+                <h3>Big Cat Little Cat</h3>
+            </div>
+
+            <div class="article_list_item">
+                <img src="images/mt_card.jpg" alt="1" class="article_img">
+                <h3>Midnight Theater</h3>
+            </div>
+
+            <div class="article_list_item">
+                <img src="images/t1.jpg" alt="1" class="article_img">
+                <h3>Title</h3>
+            </div>
+
+            <div class="article_list_item">
+                <img src="images/t2.jpg" alt="2" class="article_img">
+                <h3>Another Title</h3>
+            </div>
+
+            <div class="article_list_item">
+                <img src="images/t3.jpg" alt="2" class="article_img">
+                <h3>Another Title</h3>
+            </div>
+
+            <div class="article_list_item">
+                <img src="images/t4.jpg" alt="2" class="article_img">
+                <h3>Another Title</h3>
+            </div>
+        </div>
+    </aside>
+
+    <div class="hero">
+        <div class="project_title"><h2>Project Title Here</h2></div> <!-- Centered above stage container -->
+
+                
+        <div class="stage_container">
+            <div class = "instructions"><p>Instructions</p></div> <!-- Centered above stage -->
+                
+            <div class = "stage">
+                <img src="images/BC_LC_card.jpg" alt="1" class="project_img">
+            </div>
+
+            <div class = "controls"> <!-- Centered below stage -->
+                <button id = "prev">Prev</button>
+                <button id = "next">Next</button>
+                <button id = "restart">Restart</button>
+            </div>
+        </div>
+    
+        <div class="additional_project_items"> <!-- Centered below stage container -->
+            <div class="project_item">
+                <img src="images/t3.jpg" alt="2" class="project_item_img">
+                <h3>View project Item</h3>
+            </div>
+            
+            <div class="project_item">
+                <img src="images/t3.jpg" alt="2" class="project_item_img">
+                <h3>View project Item</h3>
+            </div>
+    
+            <div class="project_item">
+                <img src="images/t3.jpg" alt="2" class="project_item_img">
+                <h3>View project Item</h3>
+            </div>
+        </div>
+    </div>
+    
+</main>
+    
+    
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section copyright">
+                <p>&copy; 2024 Jason B Wilson. All Rights Reserved.</p>
+            </div>
+            <div class="footer-section contact">
+                <p><a href="mailto:jasonbwilson.story@gmail.com">jasonbwilson.story@gmail.com</a></p>
+            </div>
+            <div class="footer-section social">
+                <a href="https://bsky.app/profile/example" target="_blank">
+                    <img src="images/svg/bluesky.svg" alt="Bluesky">
+                </a>
+                <a href="https://instagram.com/example" target="_blank">
+                    <img src="images/svg/instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://youtube.com/example" target="_blank">
+                    <img src="images/svg/youtube.svg" alt="YouTube">
+                </a>
+            </div>
+        </div>
+    </footer>
+ 
+
+    <script>
+        document.getElementById('mobile-menu').addEventListener('click', function() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -753,8 +753,7 @@ main {
     }
 
     .project_item {
-        width: 120px; /* Keeps project items uniform */
-        min-width: 120px;
+        width: 80px; /* Keeps project items uniform */
         text-align: center;
     }
 

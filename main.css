@@ -761,6 +761,9 @@ main {
         width: 100%;
         height: auto;
     }
+    .project_item h3 {
+        font-size: 12px;
+    }
 
     /* 🔄 FIX: Footer Adjustments */
     footer {

@@ -678,6 +678,11 @@ main {
         border-bottom: var(--thin-border);
     }
 
+    /* storyboard h2 test for mobile */
+    .article_list h2 {
+        font-size: 0px;
+    }
+
     .article_list {
         display: flex;
         flex-direction: row;
@@ -720,14 +725,14 @@ main {
     }
 
     .project_title {
-        font-size: 16px;
+        font-size: 12px;
     }
     .stage {
         width: 100%;
     }
 
     .instructions {
-        font-size: 12px;
+        font-size: 11px;
     }
     .stage img {
         width: 100%;

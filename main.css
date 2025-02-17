@@ -719,10 +719,16 @@ main {
         padding: 15px;
     }
 
+    .project_title {
+        font-size: 16px;
+    }
     .stage {
         width: 100%;
     }
 
+    .instructions {
+        font-size: 12px;
+    }
     .stage img {
         width: 100%;
         height: auto;
@@ -762,7 +768,7 @@ main {
         height: auto;
     }
     .project_item h3 {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     /* 🔄 FIX: Footer Adjustments */

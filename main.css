@@ -679,18 +679,16 @@ main {
     }
 
     /* storyboard h2 test for mobile */
-    .article_list h2 {
-        font-size: 0px;
+ 
+    .list_label {
+        display: none; /* Hides the label */
     }
 
-    .article_list {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        width: 100%;
-        overflow-x: auto;
-        padding: 0;
-        border: none;
+    .article_list h2 {
+        display: none; /* Shows the label */
+        font-size: 16px; /* Adjusts font size for mobile */
+        margin-bottom: 10px; /* Adds spacing below the label */
+
     }
 
     .article_list_items {

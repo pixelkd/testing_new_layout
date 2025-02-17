@@ -1,6 +1,6 @@
 const projectData = {
     "site_link_A": {
-        "title": "Link A",
+        "title": "storyboards",
         "projects": [
             {
                 "title": "Big Cat Little Cat",
@@ -374,74 +374,46 @@ const projectData = {
         ]
     },
     "link_B": {
-        "title": "Link B",
+        "title": "comics",
         "projects": [
             {
                 "title": "Comic Project 1",
                 "type": "pages",
-                "icon": "images/t1.jpg",
+                "icon": "images/EA_card.jpg",
                 "imageSequence": [
-					"images/t1/Timeline 1_0000.jpg",
-					"images/t1/Timeline 1_0001.jpg",
-					"images/t1/Timeline 1_0002.jpg",
-					"images/t1/Timeline 1_0003.jpg",
-					"images/t1/Timeline 1_0004.jpg",
-					"images/t1/Timeline 1_0005.jpg",
-					"images/t1/Timeline 1_0006.jpg",
-					"images/t1/Timeline 1_0007.jpg",
-					"images/t1/Timeline 1_0008.jpg",
-					"images/t1/Timeline 1_0009.jpg"
+					"images/comics/appleOfEvile_01.jpg",
+					"images/comics/appleOfEvile_02.jpg",
 					]
             },
             {
                 "title": "Comic Project 2",
                 "type": "pages",
-                "icon": "images/t2.jpg",
+                "icon": "images/E01_card.jpg",
                 "imageSequence": [
-					"images/t2/Timeline 1_0000.jpg",
-					"images/t2/Timeline 12_0001.jpg",
-					"images/t2/Timeline 1_0002.jpg",
-					"images/t2/Timeline 1_0003.jpg",
-					"images/t2/Timeline 1_0004.jpg",
-					"images/t2/Timeline 1_0005.jpg",
-					"images/t2/Timeline 1_0006.jpg",
-					"images/t2/Timeline 1_0007.jpg",
-					"images/t2/Timeline 1_0008.jpg",
-					"images/t2/Timeline 1_0009.jpg"
+					"images/comics/E01_20_ink.jpg",
+					"images/comics/E01_22_ink.jpg"
+
 					]
             },
             {
                 "title": "Comic Project 3",
                 "type": "pages",
-                "icon": "images/t3.jpg",
+                "icon": "images/E02_card.jpg",
                 "imageSequence": [
-					"images/t3/Timeline 1_0000.jpg",
-					"images/t3/Timeline 1_0001.jpg",
-					"images/t3/Timeline 1_0002.jpg",
-					"images/t3/Timeline 1_0003.jpg",
-					"images/t3/Timeline 1_0004.jpg",
-					"images/t3/Timeline 1_0005.jpg",
-					"images/t3/Timeline 1_0006.jpg",
-					"images/t3/Timeline 1_0007.jpg",
-					"images/t3/Timeline 1_0008.jpg",
-					"images/t3/Timeline 1_0009.jpg"
+					"images/comics/E2_18.jpg",
+					"images/comics/E2_19.jpg",
+					"images/comics/E2_20.jpg",
+					"images/comics/E2_21.jpg"
 					]
             },
             {
                 "title": "Comic Project 4",
                 "type": "pages",
-                "icon": "images/t4.jpg",
+                "icon": "images/v_p_card.jpg",
                 "imageSequence": [
-					"images/t4/Timeline 1_0000.jpg",
-					"images/t4/Timeline 1_0001.jpg",
-					"images/t4/Timeline 1_0002.jpg",
-					"images/t4/Timeline 1_0003.jpg",
-					"images/t4/Timeline 1_0004.jpg",
-					"images/t4/Timeline 1_0005.jpg",
-					"images/t4/Timeline 1_0006.jpg",
-					"images/t4/Timeline 1_0007.jpg",
-					"images/t4/Timeline 1_0008.jpg",
-					"images/t4/Timeline 1_0009.jpg"
+					"images/comics/v_p14.jpg",
+					"images/comics/v_p15.jpg",
+					"images/comics/v_p16.jpg"
 					]
             }
         ]

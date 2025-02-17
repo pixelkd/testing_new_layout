@@ -197,6 +197,22 @@ button:hover {
     color: white;
 }
 
+.nav-link {
+    cursor: pointer;
+    display: inline-block; /* Ensures transform works */
+    transition: transform 0.2s ease-out, color 0.2s ease-out;
+}
+
+/* ================================
+   🔄 NAV-LINK CLICK ANIMATION
+   ================================ */
+
+   .nav-click-effect {
+    transform: scale(1.05); /* Slightly enlarge */
+    color: #00d5ff; /* Ensure visibility */
+    transition: transform 0.2s ease-out, color 0.2s ease-out;
+}
+
 .menu-toggle {
     display: none;
     flex-direction: column;
@@ -210,42 +226,7 @@ button:hover {
     background-color: var(--text-color);
 }
 
-/* Responsive Navigation */
-@media (max-width: 768px) {
-    .header {
-        flex-wrap: wrap;
-    }
 
-    .logo-container {
-        flex-grow: 1;
-    }
-    
-    .nav-bar {
-        flex-grow: 1;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-    }
-
-    .navigation {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: var(--header-height);
-        right: 10px;
-        background-color: var(--secondary-bg);
-        padding: 10px;
-        border-radius: 5px;
-    }
-
-    .navigation.active {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: flex;
-    }
-}
 
 /* ================================
    🖥️ DESKTOP LAYOUT
@@ -408,6 +389,11 @@ main {
     max-height: 80vh; /* Allow images to scale but not take up the entire viewport */
     object-fit: contain;
 }
+
+.stage:hover {
+    cursor: pointer;
+} 
+
 
 /* Slideshow Navigation Buttons */
 .controls {
@@ -581,6 +567,36 @@ main {
         width: 100%;
         max-width: 100%;
         padding: 0;
+    }
+
+    .logo-container {
+        flex-grow: 1;
+    }
+    
+    .nav-bar {
+        flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .navigation {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: var(--header-height);
+        right: 10px;
+        background-color: var(--secondary-bg);
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .navigation.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: flex;
     }
 
     .header {

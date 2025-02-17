@@ -18,9 +18,9 @@
 
         <nav class="nav-bar">
             <ul class="navigation" id="nav-links">
-                <li><a href="#">Storyboards</a></li>
-                <li><a href="#">Comics</a></li>
-                <li><a href="#">About</a></li>
+                <li><a class = "nav-link" id= "nav-storyboards">Storyboards</a></li>
+                <li><a class = "nav-link" id= "nav-comics">Comics</a></li>
+                <li><a class = "nav-link" href="#" id= "nav-about">About</a></li>
             </ul>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -35,7 +35,7 @@
 <main>
     <div class = "project-selection">
         <aside class="article_list">
-            <div class = list_lable></span><h2>Storyboards List . </h2></div>
+            <div class = list_label></span><h2>Storyboards List . </h2></div>
             
             
             <div class="article_list_items"> <!-- Keep this list between 2 and 4 -->
@@ -143,13 +143,6 @@
         </div>
     </footer>
  
-
-    <script>
-        document.getElementById('mobile-menu').addEventListener('click', function() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active');
-            this.classList.toggle('active');
-        });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

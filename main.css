@@ -269,6 +269,7 @@ main {
    .project-selection {
     flex: 1;
     max-width: 300px; /* Slightly larger on wider screens */
+    margin: 10px;
 }
 
 .article_list {
@@ -362,6 +363,7 @@ main {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing);
+    
 }
 
 
@@ -379,6 +381,8 @@ main {
     max-width: 1200px; /* Allow it to grow up to 1200px on large screens */
     min-width: 500px;  /* Prevent it from getting too small */
     padding: 2vw;
+    background-color: #1d1d1d;
+    border-radius: 12px;
 }
 
 /* Instructions at the top */
@@ -391,7 +395,7 @@ main {
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 6px;
+    
 }
 
 /* Image inside the Stage */
@@ -476,11 +480,8 @@ main {
    footer {
     width: 100%;
     text-align: center;
-    padding: 1.5vw;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    padding: 5px 10px; /* Reduce padding */
+    font-size: 12px; /* Smaller text */
     background: #181818;
     border-top: var(--thin-border);
 }
@@ -488,18 +489,16 @@ main {
 /* Container for footer content */
 .footer-container {
     display: flex;
-    justify-content: space-between;
-    max-width: 90vw;
-    margin: auto;
+    justify-content: center;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 /* Footer sections */
 .footer-section {
-    flex: 1;
-    min-width: 200px;
-    text-align: center;
-    padding: 10px;
+    padding: 3px; /* Reduce spacing */
+    min-width: auto; /* Prevents unnecessary stretching */
+    font-size: 11px; /* Slightly smaller text */
 }
 
 .footer-section.social img {
@@ -510,9 +509,7 @@ main {
 
 /* Ensure links look good */
 .footer-section a {
-    color: lightgray;
-    text-decoration: none;
-    transition: color 0.3s;
+    font-size: 11px; /* Adjust link size */
 }
 
 .footer-section a:hover {
@@ -525,9 +522,8 @@ main {
 }
 
 .footer-section.social img {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.3s ease-in-out;
+    width: 24px; /* Smaller icons */
+    height: 24px;
 }
 
 .footer-section.social img:hover {

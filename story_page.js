@@ -3,6 +3,11 @@ let imageSequence = []; // Stores the current project's image sequence
 let preloadedImages = {}; // Buffer for preloaded images
 
 
+let touchStartX = 0;
+let accumulatedSwipeDistance = 0;
+const SWIPE_SENSITIVITY = 20; // Pixels per frame change
+
+
 /**
  * Loads a storyboard project into the hero section.
  *
@@ -322,10 +327,6 @@ function preloadImages() {
 
 
 
-let touchStartX = 0;
-let accumulatedSwipeDistance = 0;
-const SWIPE_SENSITIVITY = 20; // Pixels per frame change
-
 /**
  * Detects the start of a touch event.
  * @param {TouchEvent} event - The touch event.
@@ -360,5 +361,44 @@ function handleTouchMove(event) {
 
         // Reset accumulatedSwipeDistance while keeping any leftover movement
         accumulatedSwipeDistance %= SWIPE_SENSITIVITY;
+    }
+}
+
+/**
+ * Detects the end of a touch event and determines how many frames to advance.
+ * @param {TouchEvent} event - The touch event.
+ */
+function handleTouchEnd(event) {
+    const touchEndTime = Date.now();
+    const touchDuration = touchEndTime - touchStartTime; // Time taken for swipe
+    const swipeVelocity = Math.abs(accumulatedSwipeDistance) / touchDuration; // Speed
+
+    const framesToAdvance = Math.min(3, Math.floor(Math.abs(accumulatedSwipeDistance) / SWIPE_SENSITIVITY));
+
+    if (accumulatedSwipeDistance > SWIPE_SENSITIVITY) {
+        // Move forward multiple frames smoothly
+        advanceFrames(framesToAdvance, true);
+    } else if (accumulatedSwipeDistance < -SWIPE_SENSITIVITY) {
+        // Move backward multiple frames smoothly
+        advanceFrames(framesToAdvance, false);
+    }
+}
+
+/**
+ * Advances multiple frames sequentially for smooth dragging.
+ * @param {number} frames - Number of frames to move.
+ * @param {boolean} forward - True for forward, false for backward.
+ */
+function advanceFrames(frames, forward) {
+    let delay = 50; // Delay between each frame switch (ms)
+
+    for (let i = 0; i < frames; i++) {
+        setTimeout(() => {
+            if (forward) {
+                moveToNextImage();
+            } else {
+                moveToPreviousImage();
+            }
+        }, i * delay);
     }
 }

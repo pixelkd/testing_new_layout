@@ -91,7 +91,7 @@ function createSlideshowStage(project) {
     instructions_div.classList.add("instructions");
 
     const instructions_p = document.createElement("p");
-    instructions_p.textContent = "Use the navigation buttons, click the image, swipe, or use the scroll wheel to advance through the slideshow.";
+    instructions_p.textContent = "Navigate with the buttons, arrow keys, touch, or clicking the image.";
     instructions_div.appendChild(instructions_p);
 
     // ---------------------- Slideshow Stage ----------------------
@@ -103,6 +103,7 @@ function createSlideshowStage(project) {
     stage.addEventListener("touchstart", handleTouchStart, { passive: true });
     stage.addEventListener("touchmove", handleTouchMove, { passive: true });
     stage.addEventListener("touchend", handleTouchEnd, { passive: true });
+    document.addEventListener("keydown", handleKeyPress);
 
     // Create the slideshow image (initially set to a placeholder)
     const stageImage = document.createElement("img");
@@ -325,6 +326,25 @@ function preloadImages() {
     // console.log("Preloaded images:", Object.keys(preloadedImages));
 }
 
+/**
+ * Handles key press events for slideshow navigation.
+ * @param {KeyboardEvent} event - The key event.
+ */
+function handleKeyPress(event) {
+    // Prevent arrow keys from scrolling the page
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        event.preventDefault();
+    }
+
+    // Right Arrow → Move forward
+    if (event.key === "ArrowRight") {
+        moveToNextImage();
+    }
+    // Left Arrow → Move backward
+    else if (event.key === "ArrowLeft") {
+        moveToPreviousImage();
+    }
+}
 
 
 /**

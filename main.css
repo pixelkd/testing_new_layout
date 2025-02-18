@@ -280,11 +280,16 @@ main {
     background: #222;
     padding: 10px;
     border-radius: 4px;
-    transition: transform 0.2s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 /* Hover Effect */
 .article_list_item:hover {
+    transform: scale(1.05);
+}
+
+.article_list_item.selected {
+    box-shadow: 0px 0px 12px rgba(255, 2155, 255, 0.5);
     transform: scale(1.05);
 }
 
@@ -369,6 +374,7 @@ main {
 /* Instructions at the top */
 .instructions {
     text-align: center;
+    font-size: 20px;
 }
 
 
@@ -742,7 +748,7 @@ main {
     }
 
     .instructions {
-        font-size: 11px;
+        font-size: 20px;
     }
     .stage img {
         width: 100%;

@@ -2,6 +2,20 @@ let currentImageIndex = 0; // Tracks the currently displayed image
 let imageSequence = []; // Stores the current project's image sequence
 let preloadedImages = {}; // Buffer for preloaded images
 
+
+let touchStartX = 0;
+let touchStartY = 0;
+const SWIPE_THRESHOLD = 30; // Minimum distance for a valid swipe
+
+/**
+ * Detects the start of a touch event.
+ * @param {TouchEvent} event - The touch event.
+ */
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+}
+
 /**
  * Loads a storyboard project into the hero section.
  *
@@ -94,6 +108,8 @@ function createSlideshowStage(project) {
     stage.classList.add("stage");
     stage.addEventListener("click", moveToNextImage);
     stage.addEventListener("wheel", handleScrollNavigation); // Add scroll event
+    stage.addEventListener("touchstart", handleTouchStart, { passive: true });
+    stage.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     // Create the slideshow image (initially set to a placeholder)
     const stageImage = document.createElement("img");
@@ -314,4 +330,30 @@ function preloadImages() {
     }
 
     // console.log("Preloaded images:", Object.keys(preloadedImages));
+}
+
+/**
+ * Detects the end of a touch event and determines if a swipe occurred.
+ * @param {TouchEvent} event - The touch event.
+ */
+function handleTouchEnd(event) {
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+
+    // Ignore vertical swipes (user scrolling)
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        return;
+    }
+
+    // Swipe Right (Move Forward)
+    if (deltaX > SWIPE_THRESHOLD) {
+        moveToNextImage();
+    }
+    // Swipe Left (Move Backward)
+    else if (deltaX < -SWIPE_THRESHOLD) {
+        moveToPreviousImage();
+    }
 }

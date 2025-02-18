@@ -3,12 +3,6 @@ let imageSequence = []; // Stores the current project's image sequence
 let preloadedImages = {}; // Buffer for preloaded images
 
 
-let touchStartX = 0;
-let touchStartTime = 0;
-let accumulatedSwipeDistance = 0;
-const SWIPE_SENSITIVITY = 20; // How much movement is needed per frame change
-
-
 /**
  * Loads a storyboard project into the hero section.
  *
@@ -328,61 +322,43 @@ function preloadImages() {
 
 
 
+let touchStartX = 0;
+let accumulatedSwipeDistance = 0;
+const SWIPE_SENSITIVITY = 20; // Pixels per frame change
+
 /**
  * Detects the start of a touch event.
  * @param {TouchEvent} event - The touch event.
  */
 function handleTouchStart(event) {
     touchStartX = event.touches[0].clientX;
-    touchStartTime = Date.now();
     accumulatedSwipeDistance = 0; // Reset accumulated movement
 }
 
 /**
  * Detects movement during a touch event (dragging).
+ * Updates frames in real-time as the user moves their finger.
  * @param {TouchEvent} event - The touch event.
  */
 function handleTouchMove(event) {
     const currentX = event.touches[0].clientX;
-    accumulatedSwipeDistance += currentX - touchStartX;
-    touchStartX = currentX; // Reset touchStartX to track movement continuously
-}
+    const deltaX = currentX - touchStartX; // Movement since last frame update
+    accumulatedSwipeDistance += deltaX; // Add movement to accumulated total
+    touchStartX = currentX; // Reset for continuous tracking
 
-/**
- * Detects the end of a touch event and determines how many frames to advance.
- * @param {TouchEvent} event - The touch event.
- */
-function handleTouchEnd(event) {
-    const touchEndTime = Date.now();
-    const touchDuration = touchEndTime - touchStartTime; // Time taken for swipe
-    const swipeVelocity = Math.abs(accumulatedSwipeDistance) / touchDuration; // Speed
+    // Determine the number of frames to move
+    let framesToMove = Math.floor(Math.abs(accumulatedSwipeDistance) / SWIPE_SENSITIVITY);
 
-    const framesToAdvance = Math.min(3, Math.floor(Math.abs(accumulatedSwipeDistance) / SWIPE_SENSITIVITY));
-
-    if (accumulatedSwipeDistance > SWIPE_SENSITIVITY) {
-        // Move forward multiple frames smoothly
-        advanceFrames(framesToAdvance, true);
-    } else if (accumulatedSwipeDistance < -SWIPE_SENSITIVITY) {
-        // Move backward multiple frames smoothly
-        advanceFrames(framesToAdvance, false);
-    }
-}
-
-/**
- * Advances multiple frames sequentially for smooth dragging.
- * @param {number} frames - Number of frames to move.
- * @param {boolean} forward - True for forward, false for backward.
- */
-function advanceFrames(frames, forward) {
-    let delay = 50; // Delay between each frame switch (ms)
-
-    for (let i = 0; i < frames; i++) {
-        setTimeout(() => {
-            if (forward) {
-                moveToNextImage();
+    if (framesToMove > 0) {
+        for (let i = 0; i < framesToMove; i++) {
+            if (accumulatedSwipeDistance > 0) {
+                moveToNextImage(); // Move forward
             } else {
-                moveToPreviousImage();
+                moveToPreviousImage(); // Move backward
             }
-        }, i * delay);
+        }
+
+        // Reset accumulatedSwipeDistance while keeping any leftover movement
+        accumulatedSwipeDistance %= SWIPE_SENSITIVITY;
     }
 }

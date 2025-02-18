@@ -1,5 +1,5 @@
 const projectData = {
-    "site_link_A": {
+    "story_link": {
         "title": "storyboards",
         "projects": [
             {
@@ -166,6 +166,10 @@ const projectData = {
 "images/BCLC/BC_LC_test-165.jpg",
 "images/BCLC/BC_LC_test-166.jpg",
 "images/BCLC/BC_LC_test-167.jpg"
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             },
             {
@@ -352,6 +356,10 @@ const projectData = {
 "images/MT/mt-177.jpg",
 "images/MT/mt-178.jpg",
 "images/MT/mt-179.jpg"
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             },
             {
@@ -369,11 +377,15 @@ const projectData = {
 					"images/t3/Timeline 1_0007.jpg",
 					"images/t3/Timeline 1_0008.jpg",
 					"images/t3/Timeline 1_0009.jpg"
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             }
         ]
     },
-    "link_B": {
+    "comics_link": {
         "title": "comics",
         "projects": [
             {
@@ -383,6 +395,10 @@ const projectData = {
                 "imageSequence": [
 					"images/comics/appleOfEvile_01.jpg",
 					"images/comics/appleOfEvile_02.jpg",
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             },
             {
@@ -393,6 +409,10 @@ const projectData = {
 					"images/comics/E01_20_ink.jpg",
 					"images/comics/E01_22_ink.jpg"
 
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             },
             {
@@ -404,6 +424,10 @@ const projectData = {
 					"images/comics/E2_19.jpg",
 					"images/comics/E2_20.jpg",
 					"images/comics/E2_21.jpg"
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             },
             {
@@ -414,6 +438,10 @@ const projectData = {
 					"images/comics/v_p14.jpg",
 					"images/comics/v_p15.jpg",
 					"images/comics/v_p16.jpg"
+					],
+					"additionalItems": [
+						{ "title": "Concept Art", "image": "images/t1.jpg" },
+						{ "title": "Behind the Scenes", "image": "images/t2.jpg" }
 					]
             }
         ]

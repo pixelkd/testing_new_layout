@@ -4,17 +4,10 @@ let preloadedImages = {}; // Buffer for preloaded images
 
 
 let touchStartX = 0;
-let touchStartY = 0;
-const SWIPE_THRESHOLD = 30; // Minimum distance for a valid swipe
+let touchStartTime = 0;
+let accumulatedSwipeDistance = 0;
+const SWIPE_SENSITIVITY = 20; // How much movement is needed per frame change
 
-/**
- * Detects the start of a touch event.
- * @param {TouchEvent} event - The touch event.
- */
-function handleTouchStart(event) {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-}
 
 /**
  * Loads a storyboard project into the hero section.
@@ -109,6 +102,7 @@ function createSlideshowStage(project) {
     stage.addEventListener("click", moveToNextImage);
     stage.addEventListener("wheel", handleScrollNavigation); // Add scroll event
     stage.addEventListener("touchstart", handleTouchStart, { passive: true });
+    stage.addEventListener("touchmove", handleTouchMove, { passive: true });
     stage.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     // Create the slideshow image (initially set to a placeholder)
@@ -332,28 +326,63 @@ function preloadImages() {
     // console.log("Preloaded images:", Object.keys(preloadedImages));
 }
 
+
+
 /**
- * Detects the end of a touch event and determines if a swipe occurred.
+ * Detects the start of a touch event.
+ * @param {TouchEvent} event - The touch event.
+ */
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartTime = Date.now();
+    accumulatedSwipeDistance = 0; // Reset accumulated movement
+}
+
+/**
+ * Detects movement during a touch event (dragging).
+ * @param {TouchEvent} event - The touch event.
+ */
+function handleTouchMove(event) {
+    const currentX = event.touches[0].clientX;
+    accumulatedSwipeDistance += currentX - touchStartX;
+    touchStartX = currentX; // Reset touchStartX to track movement continuously
+}
+
+/**
+ * Detects the end of a touch event and determines how many frames to advance.
  * @param {TouchEvent} event - The touch event.
  */
 function handleTouchEnd(event) {
-    const touchEndX = event.changedTouches[0].clientX;
-    const touchEndY = event.changedTouches[0].clientY;
-    
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
+    const touchEndTime = Date.now();
+    const touchDuration = touchEndTime - touchStartTime; // Time taken for swipe
+    const swipeVelocity = Math.abs(accumulatedSwipeDistance) / touchDuration; // Speed
 
-    // Ignore vertical swipes (user scrolling)
-    if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        return;
-    }
+    const framesToAdvance = Math.min(3, Math.floor(Math.abs(accumulatedSwipeDistance) / SWIPE_SENSITIVITY));
 
-    // Swipe Right (Move Forward)
-    if (deltaX > SWIPE_THRESHOLD) {
-        moveToNextImage();
+    if (accumulatedSwipeDistance > SWIPE_SENSITIVITY) {
+        // Move forward multiple frames smoothly
+        advanceFrames(framesToAdvance, true);
+    } else if (accumulatedSwipeDistance < -SWIPE_SENSITIVITY) {
+        // Move backward multiple frames smoothly
+        advanceFrames(framesToAdvance, false);
     }
-    // Swipe Left (Move Backward)
-    else if (deltaX < -SWIPE_THRESHOLD) {
-        moveToPreviousImage();
+}
+
+/**
+ * Advances multiple frames sequentially for smooth dragging.
+ * @param {number} frames - Number of frames to move.
+ * @param {boolean} forward - True for forward, false for backward.
+ */
+function advanceFrames(frames, forward) {
+    let delay = 50; // Delay between each frame switch (ms)
+
+    for (let i = 0; i < frames; i++) {
+        setTimeout(() => {
+            if (forward) {
+                moveToNextImage();
+            } else {
+                moveToPreviousImage();
+            }
+        }, i * delay);
     }
 }

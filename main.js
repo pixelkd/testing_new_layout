@@ -101,32 +101,25 @@ function updateListLabel(newText){
  * Loads projects dynamically into the sidebar.
  * @param {string} section - "stroy_link" or "comics_link".
  */
+/**
+ * Loads projects dynamically into the sidebar and auto-selects the first one.
+ * @param {string} section - "story_link" or "comics_link".
+ */
 function loadProjects(section) {
-    console.log(`${section} passed to loadProjects`);
-
-    const listLabel = document.querySelector(".list_label h2");
-
-    //Determine what the label should be based on the type - ternary (conditional) operator
-    const expectedLabel = section === "story_link" ? "Storyboards List" : "Comics List";
-
     const articleList = document.querySelector(".article_list_items");
-    
-    if (listLabel.textContent === expectedLabel) {
-        console.log(`Sidebar already showing: ${expectedLabel}`);
+
+    if (!articleList) {
+        console.warn("Sidebar list container is missing.");
         return;
     }
 
-    //Otherwise, clear the sidebar
-    articleList.innerHTML = "";
-    console.log(`Cleared the sidebar and prepaired to load ${expectedLabel} projects.`);
-
+    // Retrieve the correct projects
     const projects = projectData[section]?.projects;
 
+    // Handle empty projects
     if (!projects || projects.length === 0) {
         articleList.innerHTML = `<p>No projects available.</p>`;
         return;
-    } else {
-        console.log('Projects located.'); // Debugging
     }
 
     // Warn if more than 4 projects exist
@@ -134,30 +127,35 @@ function loadProjects(section) {
         console.warn(`More than 4 projects found in ${section}. Consider reducing.`);
     }
 
-    // ::: Loop through each project and create a sidebar element.
-    projects.forEach(project => {
-        // Create an <a> tag to wrap the project item in
-        const projectLink = document.createElement("a");
-        projectLink.href = "#"; // Prevent page reloads
+    // Clear existing sidebar content
+    articleList.innerHTML = "";
 
-        // Create the project container div
+    let firstProjectItem = null; // Store reference to first project
+
+    // Loop through projects and create sidebar elements
+    projects.forEach((project, index) => {
+        // Create the clickable link wrapper
+        const projectLink = document.createElement("a");
+        projectLink.href = "#";
+
+        // Create the project container
         const projectItem = document.createElement("div");
         projectItem.classList.add("article_list_item");
 
-        // Create image element
+        // Create the image element
         const projectImg = document.createElement("img");
         projectImg.classList.add("article_img");
         projectImg.alt = project.title;
 
-        // Set image source or apply placeholder if missing
+        // Set the image source or a placeholder
         if (project.icon) {
             projectImg.src = project.icon;
-            projectImg.onerror = () => { projectImg.src = createPlaceholder("failed")};
+            projectImg.onerror = () => { projectImg.src = createPlaceholder("failed"); };
         } else {
             projectImg.src = createPlaceholder("no_icon");
         }
 
-        // Create title element
+        // Create the project title
         const projectTitle = document.createElement("h3");
         projectTitle.textContent = project.title;
 
@@ -167,45 +165,46 @@ function loadProjects(section) {
         projectLink.appendChild(projectItem);
         articleList.appendChild(projectLink);
 
-        projectItem.addEventListener('click', function() {
-            console.log(`Project selected: ${project.title}`);
+        // Attach click event to apply the "selected" effect
+        projectItem.addEventListener("click", function () {
+            handleProjectSelection(projectItem, project, section);
         });
+
+        // Store the first project for auto-selection
+        if (index === 0) {
+            firstProjectItem = projectItem;
+        }
     });
 
+    // Auto-select the first project
+    if (firstProjectItem) {
+        firstProjectItem.click();
+    }
 }
-
 
 /**
- * Create a 16x9 SVG placeholder rectange.
- * @param {string} type - the type of placeholder ("no_icon", "failed", "category_missing", "placeholder").
- * @returns {string} - an SVG string representing the placeholder.
+ * Handles project selection, applying the "selected" effect and triggering content loading.
+ * @param {HTMLElement} selectedItem - The clicked project element.
+ * @param {Object} project - The project data object.
+ * @param {string} section - "story_link" or "comics_link".
  */
-function createPlaceholder(type){
-    let color;
+function handleProjectSelection(selectedItem, project, section) {
+    // Remove "selected" from all sidebar items
+    document.querySelectorAll(".article_list_item").forEach(item => {
+        item.classList.remove("selected");
+    });
 
-    switch (type){
-        case "no_icon":
-            color = "#808080"; // Gray
-            break;
-        case "failed":
-            color = "#B22222"; // Red
-            break;
-        case "category_missing":
-            color = "#FFD700" // Yellow
-            break;
-        case "placeholder":
-            color = "#1E90FF" // Blue (testing)
-            break;
-        default:
-            color = "#000000" // Black (fallback)
+    // Apply "selected" effect to the clicked project
+    selectedItem.classList.add("selected");
+
+    // Determine which function to call
+    if (section === "story_link") {
+        load_storyboard(project);
+    } else if (section === "comics_link") {
+        load_comic(project);
     }
-
-    // Return an SVG element as a data URI
-    return `data:image/svg+xml;base64,${btoa(`
-        <svg xmlns="http://www.w3.org/2000/svg" width="160" height="90" viewBox="0 0 160 90">
-            <rect width="100%" height="100%" fill="${color}" />
-            <text x="50%" y="50%" font-size="12" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">${type.toUpperCase()}</text>
-        </svg>
-    `)}`;    
 }
+
+
+
 

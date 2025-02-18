@@ -173,7 +173,7 @@ const projectData = {
 					]
             },
             {
-                "title": "The Greatest Story Ever Told",
+                "title": "Midnight Theater",
                 "type": "slideshow",
                 "icon": "images/mt_card.jpg",
                 "imageSequence": [
@@ -363,7 +363,7 @@ const projectData = {
 					]
             },
             {
-                "title": "Imaginary Puppet Puppy",
+                "title": "Cyber Heist",
                 "type": "slideshow",
                 "icon": "images/t3.jpg",
                 "imageSequence": [
@@ -389,7 +389,7 @@ const projectData = {
         "title": "comics",
         "projects": [
             {
-                "title": "Comic Project 1",
+                "title": "Goblin Universe",
                 "type": "pages",
                 "icon": "images/EA_card.jpg",
                 "imageSequence": [
@@ -402,7 +402,7 @@ const projectData = {
 					]
             },
             {
-                "title": "Comic Project 2",
+                "title": "Lucy Chapline",
                 "type": "pages",
                 "icon": "images/E01_card.jpg",
                 "imageSequence": [
@@ -416,7 +416,7 @@ const projectData = {
 					]
             },
             {
-                "title": "Comic Project 3",
+                "title": "Entropy",
                 "type": "pages",
                 "icon": "images/E02_card.jpg",
                 "imageSequence": [
@@ -431,7 +431,7 @@ const projectData = {
 					]
             },
             {
-                "title": "Comic Project 4",
+                "title": "Lost Worlds",
                 "type": "pages",
                 "icon": "images/v_p_card.jpg",
                 "imageSequence": [

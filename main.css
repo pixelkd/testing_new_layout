@@ -880,6 +880,12 @@ main {
         padding: 10px;
     }
 
+    .toggle_label {
+
+        width: 0px; /* Set a fixed width to avoid shifting */
+
+    }
+    
     .stage_container {
         width: 95%;
         max-width: 90vw; /* Adjusts to viewport width */
@@ -958,13 +964,5 @@ main {
 }
 
 @media (max-width: 365px) {
-    .toggle_label {
-        display: inline-block;
-        width: 0px; /* Set a fixed width to avoid shifting */
-        text-align: center; /* Center the text */
-        white-space: nowrap; /* Prevents wrapping */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        transition: 0.3s;
-    }
+
 }

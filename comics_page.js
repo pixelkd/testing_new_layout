@@ -130,26 +130,55 @@ function createComicsLayout(project){
     comic_stage.appendChild(leftImage);
     comic_stage.appendChild(rightImage);
 
+    // ---------------------- Controls Section ----------------------
     const controlsContainer = document.createElement("div");
-    controlsContainer.classList.add("controls");
+    controlsContainer.classList.add("controls", "comic");
 
     // ** Toggle Switch Container **
+    const toggleContainer = document.createElement("div");
+    toggleContainer.classList.add("toggle_container", "comic_toggle");
 
+    const toggleLabel = document.createElement("label");
+    toggleLabel.classList.add("toggle_label");
+    toggleLabel.textContent = "Spread View"; // Default state
 
-    // Previous Page Button
+    const toggleInput = document.createElement("input");
+    toggleInput.type = "checkbox";
+    toggleInput.id = "toggle-view";
+    toggleInput.classList.add("toggle_input");
+    toggleInput.checked = true; // Default to Spread mode
+    toggleInput.addEventListener("change", toggleComicLayout);
+
+    const toggleSwitch = document.createElement("span");
+    toggleSwitch.classList.add("toggle_slider");
+
+    const toggleWrapper = document.createElement("label");
+    toggleWrapper.classList.add("toggle_wrapper");
+    toggleWrapper.appendChild(toggleInput);
+    toggleWrapper.appendChild(toggleSwitch);
+
+    toggleContainer.appendChild(toggleLabel);
+    toggleContainer.appendChild(toggleWrapper);
+
+    // ** Navigation Buttons Container **
+    const navButtonsContainer = document.createElement("div");
+    navButtonsContainer.classList.add("nav_buttons");
+
     const prev_page_bttn = document.createElement("button");
     prev_page_bttn.id = "prev-page";
     prev_page_bttn.textContent = "◀ Prev";
-    controlsContainer.appendChild(prev_page_bttn);
+    navButtonsContainer.appendChild(prev_page_bttn);
 
-    // Next Page Button
     const next_page_bttn = document.createElement("button");
     next_page_bttn.id = "next-page";
     next_page_bttn.textContent = "Next ▶";
-    controlsContainer.appendChild(next_page_bttn);
+    navButtonsContainer.appendChild(next_page_bttn);
 
 
     // ---------------------- Append Elements to DOM ----------------------
+    controlsContainer.appendChild(toggleContainer);
+    controlsContainer.appendChild(navButtonsContainer);
+
     heroSection.appendChild(projectTitle);
     heroSection.appendChild(comics_container);
 
@@ -163,13 +192,33 @@ function createComicsLayout(project){
     //applyComicLayout(preferredLayout);
 }
 
+
+function toggleComicLayout(event) {
+    const comicStage = document.querySelector(".comic_stage");
+    const toggleLabel = document.querySelector(".toggle_label");
+    const toggleInput = event.target;
+
+    if (!comicStage || !toggleLabel) return;
+
+    if (toggleInput.checked) {
+        // Switch to Spread Mode
+        comicStage.classList.remove("single-page");
+        comicStage.classList.add("spread");
+        toggleLabel.textContent = "Spread View";
+        localStorage.setItem("comicLayout", "spread");
+    } else {
+        // Switch to Single Page Mode
+        comicStage.classList.remove("spread");
+        comicStage.classList.add("single-page");
+        toggleLabel.textContent = "Single Page View";
+        localStorage.setItem("comicLayout", "single-page");
+    }
+}
+
 function initializeComic(project){
     console.log(`Called to initialize comics project ${project.title}`);
 }
 
-function toggleComicLayout() {
-    console.log("toggle layout");
-}
 
 function updateComicStageSize() {
     const comicStage = document.querySelector(".comic_stage");
@@ -185,14 +234,14 @@ function updateComicStageSize() {
     // Define max percentage values based on screen size
     let maxHeightPercentage, maxWidthPercentage;
 
-    if (windowWidth >= 500) {
+    if (windowWidth >= 768) {
         // Standard desktop layout
-        maxHeightPercentage = 0.6; // 60% of height
-        maxWidthPercentage = 0.8;  // 80% of width
+        maxHeightPercentage = 0.50; // 60% of height
+        maxWidthPercentage = 0.75;  // 80% of width
     } else {
         // Mobile layout (aside moves to the top)
-        maxHeightPercentage = 0.6; // 50% of height
-        maxWidthPercentage = 0.9;  // 90% of width
+        maxHeightPercentage = 1; // 50% of height
+        maxWidthPercentage = 0.9;   // 90% of width
     }
 
     // Compute the maximum height allowed for comic_stage

@@ -433,7 +433,7 @@ main {
 
 .toggle_label {
     display: inline-block;
-    width: 110px; /* Set a fixed width to avoid shifting */
+    width: 45px; /* Set a fixed width to avoid shifting */
     text-align: center; /* Center the text */
     white-space: nowrap; /* Prevents wrapping */
     overflow: hidden;
@@ -956,3 +956,14 @@ main {
     }
 }
 
+@media (max-width: 365px) {
+    .toggle_label {
+        display: inline-block;
+        width: 0px; /* Set a fixed width to avoid shifting */
+        text-align: center; /* Center the text */
+        white-space: nowrap; /* Prevents wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: 0.3s;
+    }
+}

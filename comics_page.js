@@ -182,14 +182,27 @@ function updateComicStageSize() {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
 
-    // Desired max height for comic_stage (60% of window height)
-    const maxStageHeight = windowHeight * 0.5;
+    // Define max percentage values based on screen size
+    let maxHeightPercentage, maxWidthPercentage;
+
+    if (windowWidth >= 768) {
+        // Standard desktop layout
+        maxHeightPercentage = 0.6; // 60% of height
+        maxWidthPercentage = 0.8;  // 80% of width
+    } else {
+        // Mobile layout (aside moves to the top)
+        maxHeightPercentage = 0.5; // 50% of height
+        maxWidthPercentage = 0.9;  // 90% of width
+    }
+
+    // Compute the maximum height allowed for comic_stage
+    const maxStageHeight = windowHeight * maxHeightPercentage;
 
     // Compute width based on 16:9 aspect ratio constraint
     const widthBasedOnHeight = maxStageHeight * (16 / 9);
 
-    // Compute the maximum width allowed (80% of window width)
-    const maxStageWidth = windowWidth * 0.8;
+    // Compute the maximum width allowed
+    const maxStageWidth = windowWidth * maxWidthPercentage;
 
     // Use the smaller value to ensure it fits within both constraints
     const finalWidth = Math.min(widthBasedOnHeight, maxStageWidth);
@@ -197,7 +210,7 @@ function updateComicStageSize() {
     // Apply the new width dynamically
     comicStage.style.width = `${finalWidth}px`;
 
-    console.log(`📏 .comic_stage width updated: ${finalWidth}px (Window: ${windowWidth}x${windowHeight})`);
+    console.log(`📏 .comic_stage width updated: ${finalWidth}px (Window: ${windowWidth}x${windowHeight}, Mode: ${windowWidth < 768 ? "Mobile" : "Desktop"})`);
 }
 
 // Run function on page load

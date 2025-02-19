@@ -140,7 +140,7 @@ function createComicsLayout(project){
 
     const toggleLabel = document.createElement("label");
     toggleLabel.classList.add("toggle_label");
-    toggleLabel.textContent = "Spread View"; // Default state
+    toggleLabel.textContent = "Spread"; // Default state
 
     const toggleInput = document.createElement("input");
     toggleInput.type = "checkbox";
@@ -204,13 +204,13 @@ function toggleComicLayout(event) {
         // Switch to Spread Mode
         comicStage.classList.remove("single-page");
         comicStage.classList.add("spread");
-        toggleLabel.textContent = "Spread View";
+        toggleLabel.textContent = "Spread";
         localStorage.setItem("comicLayout", "spread");
     } else {
         // Switch to Single Page Mode
         comicStage.classList.remove("spread");
         comicStage.classList.add("single-page");
-        toggleLabel.textContent = "Single Page View";
+        toggleLabel.textContent = "Single";
         localStorage.setItem("comicLayout", "single-page");
     }
 }

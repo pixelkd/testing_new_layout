@@ -185,13 +185,13 @@ function updateComicStageSize() {
     // Define max percentage values based on screen size
     let maxHeightPercentage, maxWidthPercentage;
 
-    if (windowWidth >= 450) {
+    if (windowWidth >= 768) {
         // Standard desktop layout
         maxHeightPercentage = 0.6; // 60% of height
         maxWidthPercentage = 0.8;  // 80% of width
     } else {
         // Mobile layout (aside moves to the top)
-        maxHeightPercentage = 0.5; // 50% of height
+        maxHeightPercentage = 0.6; // 50% of height
         maxWidthPercentage = 0.9;  // 90% of width
     }
 

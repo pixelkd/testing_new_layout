@@ -390,8 +390,8 @@ const projectData = {
         "projects": [
             {
                 "title": "Goblin Universe",
-                "type": "pages",
-                "icon": "images/EA_card.jpg",
+                "type": "cover-style",
+                "icon": "images/GU_card.jpg",
                 "imageSequence": [
 					"images/comics/appleOfEvile_01.jpg",
 					"images/comics/appleOfEvile_02.jpg",
@@ -403,7 +403,7 @@ const projectData = {
             },
             {
                 "title": "Lucy Chapline",
-                "type": "pages",
+                "type": "in_medias_res",
                 "icon": "images/E01_card.jpg",
                 "imageSequence": [
 					"images/comics/E01_20_ink.jpg",

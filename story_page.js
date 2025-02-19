@@ -2,11 +2,9 @@ let currentImageIndex = 0; // Tracks the currently displayed image
 let imageSequence = []; // Stores the current project's image sequence
 let preloadedImages = {}; // Buffer for preloaded images
 
-
 let touchStartX = 0;
 let accumulatedSwipeDistance = 0;
 const SWIPE_SENSITIVITY = 20; // Pixels per frame change
-
 
 /**
  * Loads a storyboard project into the hero section.
@@ -19,14 +17,11 @@ const SWIPE_SENSITIVITY = 20; // Pixels per frame change
  *    @property {string} project.title - The title of the storyboard project.
  */
 function load_storyboard(project) {
-    // console.log(`Storyboard project "${project.title}" selected.`);
-
     // Select the hero section where the slideshow is displayed
     const heroSection = document.querySelector(".hero");
 
     // Clear all child elements of the hero section (removes previous project content)
     heroSection.replaceChildren();
-    // console.log("Hero section cleared for new project.");
 
     // Check if a slideshow stage already exists
     const existingStage = document.querySelector(".stage_container");
@@ -34,34 +29,30 @@ function load_storyboard(project) {
     if (existingStage) {
         // If the existing stage already contains this project, do nothing
         if (existingStage.dataset.activeProject === project.title) {
-            // console.log("This project is already loaded. No changes needed.");
             return; // Exit function since no updates are required
         }
 
         // Otherwise, reinitialize the slideshow with the new project
-        // console.log("Stage exists, but loading a new project. Reinitializing slideshow...");
         initializeSlideshow(project);
         return;
     }
 
     // No existing stage found, so create a new one and initialize the slideshow
-    // console.log("No stage found. Creating a new slideshow stage...");
     createSlideshowStage(project);
     initializeSlideshow(project);
-
 }
+
 
 
 /**
  * Creates and initializes the slideshow stage inside the hero section.
+ * 
  * This function dynamically generates the necessary elements for displaying
  * a project's slideshow, including title, stage, instructions, and controls.
  *
  * @param {Object} project - JSON object containing project data.
  */
 function createSlideshowStage(project) {
-    // console.log("Initializing slideshow stage for project:", project);
-
     // Select the hero section where the slideshow will be added
     const heroSection = document.querySelector(".hero");
     if (!heroSection) {
@@ -69,9 +60,7 @@ function createSlideshowStage(project) {
         return;
     }
 
-
     // ---------------------- Project Title ----------------------
-    // console.log("Creating project title...");
     const projectTitle = document.createElement("div");
     projectTitle.classList.add("project_title");
 
@@ -81,12 +70,10 @@ function createSlideshowStage(project) {
     projectTitle.appendChild(title_h2);
 
     // ---------------------- Stage Container ----------------------
-    // console.log("Creating stage container...");
     const stageContainer = document.createElement("div");
     stageContainer.classList.add("stage_container");
 
     // ---------------------- Instructions ----------------------
-    // console.log("Adding slideshow instructions...");
     const instructions_div = document.createElement("div");
     instructions_div.classList.add("instructions");
 
@@ -95,11 +82,12 @@ function createSlideshowStage(project) {
     instructions_div.appendChild(instructions_p);
 
     // ---------------------- Slideshow Stage ----------------------
-    // console.log("Creating slideshow stage...");
     const stage = document.createElement("div");
     stage.classList.add("stage");
+
+    // Add event listeners for interaction
     stage.addEventListener("click", moveToNextImage);
-    stage.addEventListener("wheel", handleScrollNavigation); // Add scroll event
+    stage.addEventListener("wheel", handleScrollNavigation);
     stage.addEventListener("touchstart", handleTouchStart, { passive: true });
     stage.addEventListener("touchmove", handleTouchMove, { passive: true });
     stage.addEventListener("touchend", handleTouchEnd, { passive: true });
@@ -112,12 +100,10 @@ function createSlideshowStage(project) {
     stage.appendChild(stageImage);
 
     // ---------------------- Controls ----------------------
-    // console.log("Creating navigation controls...");
     const controls = document.createElement("div");
     controls.classList.add("controls");
 
     // Previous button
-    // console.log("Adding previous button...");
     const prev_button = document.createElement("button");
     prev_button.id = "prev";
     prev_button.textContent = "← Prev";
@@ -125,7 +111,6 @@ function createSlideshowStage(project) {
     controls.appendChild(prev_button);
 
     // Next button
-    // console.log("Adding next button...");
     const next_button = document.createElement("button");
     next_button.id = "next";
     next_button.textContent = "Next →";
@@ -133,7 +118,6 @@ function createSlideshowStage(project) {
     controls.appendChild(next_button);
 
     // Restart button
-    // console.log("Adding restart button...");
     const restart_button = document.createElement("button");
     restart_button.id = "restart";
     restart_button.textContent = "Restart";
@@ -141,7 +125,6 @@ function createSlideshowStage(project) {
     controls.appendChild(restart_button);
 
     // ---------------------- Append Elements to DOM ----------------------
-    // console.log("Appending elements to the hero section...");
     heroSection.appendChild(projectTitle);
     heroSection.appendChild(stageContainer);
 
@@ -149,8 +132,7 @@ function createSlideshowStage(project) {
     stageContainer.appendChild(stage);
     stageContainer.appendChild(controls);
 
-    // console.log("Slideshow stage successfully created!");
-    updateNavigationControls
+    updateNavigationControls();
 }
 
 
@@ -165,8 +147,6 @@ function createSlideshowStage(project) {
  *    @property {Array} project.imageSequence - An array of image URLs for the slideshow.
  */
 function initializeSlideshow(project) {
-    // console.log(`Initializing slideshow for: "${project.title}"`);
-
     // ---------------------- Update Project Title ----------------------
     const projectTitle = document.querySelector(".project_title h2");
 
@@ -191,78 +171,110 @@ function initializeSlideshow(project) {
     }
 
     // Load the first image or a placeholder if no images exist
-    if (imageSequence.length > 0) {
-        stageImage.src = imageSequence[currentImageIndex];
-    } else {
-        stageImage.src = createPlaceholder("failed");
+    stageImage.src = imageSequence.length > 0 
+        ? imageSequence[currentImageIndex] 
+        : createPlaceholder("failed");
+
+    if (imageSequence.length === 0) {
         console.warn("No images found for this project. Using placeholder.");
     }
 
-    // console.log(`First image loaded: ${stageImage.src}`);
-
-    // Ensure correct button visibility at start
-    updateNavigationControls();
+    // ---------------------- Initialize Navigation and Preloading ----------------------
+    updateNavigationControls(); // Ensure correct button visibility at start
     preloadImages(); // Preload nearby images
 }
 
 
+
+/**
+ * Moves to the previous image in the slideshow.
+ * 
+ * If already at the first image, a warning is logged and no action is taken.
+ */
 function moveToPreviousImage() {
     if (currentImageIndex <= 0) {
-        console.warn("Already at the first image. Cannot move backward.");
         return;
     }
 
     currentImageIndex--; // Move to the previous image
-    document.querySelector(".project_img").src = imageSequence[currentImageIndex];
+    updateSlideshowImage();
 
-    // console.log(`Moved to previous image: ${imageSequence[currentImageIndex]}`);
-
-    updateNavigationControls(); // Ensure buttons update correctly
-    preloadImages(); // Preload images after moving
+    updateNavigationControls(); // Update button visibility
+    preloadImages(); // Preload adjacent images
 }
 
-
+/**
+ * Moves to the next image in the slideshow.
+ * 
+ * If already at the last image, a warning is logged and no action is taken.
+ */
 function moveToNextImage() {
     if (currentImageIndex >= imageSequence.length - 1) {
-        console.warn("Already at the last image. Cannot move forward.");
         return;
     }
 
     currentImageIndex++; // Move to the next image
-    document.querySelector(".project_img").src = imageSequence[currentImageIndex];
+    updateSlideshowImage();
 
-    // console.log(`Moved to next image: ${imageSequence[currentImageIndex]}`);
-
-    updateNavigationControls(); // Ensure buttons update correctly
-    preloadImages(); // Preload images after moving
+    updateNavigationControls(); // Update button visibility
+    preloadImages(); // Preload adjacent images
 }
 
-
+/**
+ * Restarts the slideshow by resetting to the first image.
+ * 
+ * If already on the first image, a warning is logged and no action is taken.
+ */
 function restartSlideshow() {
     if (currentImageIndex === 0) {
-        console.warn("Slideshow is already at the first image. Restart not needed.");
         return;
     }
 
     currentImageIndex = 0; // Reset to first image
-    document.querySelector(".project_img").src = imageSequence[currentImageIndex];
+    updateSlideshowImage();
 
-    // console.log("Slideshow restarted.");
+    updateNavigationControls(); // Update button visibility
+    preloadImages(); // Preload images after resetting
+}
 
-    updateNavigationControls(); // Ensure button visibility updates
-    preloadImages(); // Preload images after moving
+/**
+ * Updates the displayed slideshow image based on the current index.
+ */
+function updateSlideshowImage() {
+    const stageImage = document.querySelector(".project_img");
+
+    if (!stageImage) {
+        console.error("Slideshow image element not found.");
+        return;
+    }
+
+    stageImage.src = imageSequence[currentImageIndex];
 }
 
 
+
+/**
+ * Updates the visibility of slideshow navigation buttons based on the current image index.
+ * 
+ * - Hides "Prev" and "Restart" when viewing the first image.
+ * - Hides "Next" when viewing the last image.
+ * - Ensures buttons are visible when needed.
+ */
 function updateNavigationControls() {
     const prevButton = document.getElementById("prev");
     const nextButton = document.getElementById("next");
     const restartButton = document.getElementById("restart");
 
+    if (!prevButton || !nextButton || !restartButton) {
+        console.error("❌ One or more navigation buttons are missing in the DOM.");
+        return;
+    }
+
     // Hide "Prev" & "Restart" on the first image
     if (currentImageIndex === 0) {
         prevButton.style.visibility = "hidden";
         restartButton.style.visibility = "hidden";
+        console.log("⬅️ 'Prev' & 'Restart' buttons hidden (First Image)");
     } else {
         prevButton.style.visibility = "visible";
         restartButton.style.visibility = "visible";
@@ -271,6 +283,7 @@ function updateNavigationControls() {
     // Hide "Next" on the last image
     if (currentImageIndex >= imageSequence.length - 1) {
         nextButton.style.visibility = "hidden";
+        console.log("➡️ 'Next' button hidden (Last Image)");
     } else {
         nextButton.style.visibility = "visible";
     }
@@ -323,7 +336,6 @@ function preloadImages() {
         }
     }
 
-    // console.log("Preloaded images:", Object.keys(preloadedImages));
 }
 
 /**

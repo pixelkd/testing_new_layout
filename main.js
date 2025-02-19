@@ -11,14 +11,26 @@ document.addEventListener("DOMContentLoaded", function () {
  * Ensures all related functions execute as if manually clicked.
  */
 function loadDefaultSection() {
+    let tempToggle = 1;
     const storyboardsLink = document.getElementById('nav-storyboards');
+    //nav-comics
+    const comicsLink = document.getElementById('nav-comics');
 
-    if (storyboardsLink) {
-        console.log("Page loaded: Default to Storyboards list.");
-        storyboardsLink.click(); // Simulate click event
+    if (tempToggle === 0){
+        if (storyboardsLink) {
+            console.log("Page loaded: Default to Storyboards list.");
+            storyboardsLink.click(); // Simulate click event
+        } else {
+            console.warn("Storyboards link not found in DOM.");
+        }
     } else {
-        console.warn("Storyboards link not found in DOM.");
-    }
+        if (storyboardsLink) {
+            console.log("Page loaded: Default to Comics list.");
+            comicsLink.click(); // Simulate click event
+        } else {
+            console.warn("Comics link not found in DOM.");
+        }
+    }    
 }
 
 

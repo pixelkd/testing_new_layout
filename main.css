@@ -128,8 +128,6 @@ button:hover {
 }
 
 
-
-
 /* =============================
    Header & Navigation
    ============================= */
@@ -306,7 +304,6 @@ main {
 }
 
 
-
 /* -- remove scoll bars later? -- */
 /* ---- Scroll bars ---- */
 .article_list::-webkit-scrollbar {
@@ -341,7 +338,7 @@ main {
 
 
 /* ================================
-   🎞️ MAIN SLIDESHOW AREA
+   🎞️ MAIN HERO AREA
    ================================ */
    .hero {
     flex: 3;
@@ -361,6 +358,65 @@ main {
     padding-bottom: 8px;
 }
 
+/* Instructions at the top */
+.instructions {
+    text-align: center;
+    font-size: 20px;
+}
+
+/* ================================
+   📖 COMICS LAYOUT
+   ================================ */
+   .comic_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.comic_stage {
+    width: 80vw; /* Fixed size of a spread */
+    height: auto;
+    max-width: 1800px; /* Prevents it from becoming too large */
+    aspect-ratio: 10 / 7.73; /* Matches double-page layout */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #181818;
+    border: 1px solid #444;
+}
+
+.comic_page {
+    position: absolute;
+    width: 49.93%; /* Each page takes up half the spread - with very little gap*/
+    max-width: 900px;
+    height: auto;
+    object-fit: contain;
+}
+
+.comic_page.left {
+    left: 0;
+}
+
+.comic_page.right {
+    right: 0;
+}
+
+.comic_page.centered {
+    width: 60%; /* Centered pages should be the same width as the side by side pages */
+    max-width: 900px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* ================================
+   ⬜⬜⬜ STORYBOARD LAYOUT
+   ================================ */
 /* Expandable Slideshow Container */
 .stage_container {
     width: 100%;
@@ -370,13 +426,6 @@ main {
     background-color: #1d1d1d;
     border-radius: 12px;
 }
-
-/* Instructions at the top */
-.instructions {
-    text-align: center;
-    font-size: 20px;
-}
-
 
 .stage {
     position: relative;
@@ -408,8 +457,6 @@ main {
     gap: 10px;
     margin-top: var(--spacing);
 }
-
-
 
 /* ================================
    🏗️ ADDITIONAL PROJECT ITEMS
@@ -482,7 +529,7 @@ main {
 .footer-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
@@ -490,7 +537,7 @@ main {
 .footer-section {
     padding: 3px; /* Reduce spacing */
     min-width: auto; /* Prevents unnecessary stretching */
-    font-size: 11px; /* Slightly smaller text */
+    font-size: 14px; /* Slightly smaller text */
 }
 
 .footer-section.social img {
@@ -501,7 +548,7 @@ main {
 
 /* Ensure links look good */
 .footer-section a {
-    font-size: 11px; /* Adjust link size */
+    font-size: 18px; /* Adjust link size */
 }
 
 .footer-section a:hover {

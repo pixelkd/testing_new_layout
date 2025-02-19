@@ -5,27 +5,37 @@
  * @param {string} type - The type of placeholder ("no_icon", "failed", "category_missing", "placeholder").
  * @param {number} [width=160] - Optional width of the SVG (default: 160).
  * @param {number} [height=90] - Optional height of the SVG (default: 90).
+ * @param {string} [color="#000000"] - Optional background color for card element.
+ * @param {string} [text=""] - Optional text input to place on card element background.
  * @returns {string} - A data URI string representing the SVG placeholder.
  */
-function createPlaceholder (type, width = 160, height = 90) {
+function createPlaceholder (type, width = 160, height = 90, color = "#1a1a1a", text = "") {
     // Ensure width and height are numbers and positive
     width = Math.max(1, width);
     height = Math.max(1, height);
 
-    let color;
+    color = color;
 
     switch (type) {
         case "no_icon":
             color = "#808080"; // Gray
+            text = "No icon";
             break;
         case "failed":
             color = "#B22222"; // Red
+            text = "Failed";
             break;
         case "category_missing":
             color = "#FFD700"; // Yellow
+            text = "Missing catagory";
             break;
         case "placeholder":
             color = "#1E90FF"; // Blue (testing)
+            text = "placeholder";
+            break;
+        case "custom":
+            color = color; // user defined
+            text = text;
             break;
         default:
             color = "#000000"; // Black (fallback)
@@ -36,7 +46,7 @@ function createPlaceholder (type, width = 160, height = 90) {
         <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
             <rect width="100%" height="100%" fill="${color}" />
             <text x="50%" y="50%" font-size="${Math.min(width, height) * 0.12}" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
-                ${type.toUpperCase()}
+                ${text.toUpperCase()}
             </text>
         </svg>
     `;

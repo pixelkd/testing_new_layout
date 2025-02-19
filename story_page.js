@@ -9,38 +9,66 @@ const SWIPE_SENSITIVITY = 20; // Pixels per frame change
 /**
  * Loads a storyboard project into the hero section.
  *
- * This function checks if a storyboard slideshow is already loaded. If the requested
- * project is already active, it exits early. Otherwise, it initializes or replaces the
- * slideshow stage and starts the slideshow.
+ * - If the storyboard area already exists, checks whether the correct project is loaded.
+ * - If the correct project is already loaded, it does nothing.
+ * - If the stage is set but a different project is needed, it reinitializes the slideshow.
+ * - If the stage does not exist, it clears the hero section, creates the stage, and initializes the project.
  *
  * @param {Object} project - JSON object containing the project data.
  *    @property {string} project.title - The title of the storyboard project.
  */
 function load_storyboard(project) {
-    // Select the hero section where the slideshow is displayed
+    // Select the hero section where the slideshow will be displayed
+    console.log(`Storyboard project ${project.title} selected.`);
     const heroSection = document.querySelector(".hero");
 
-    // Clear all child elements of the hero section (removes previous project content)
-    heroSection.replaceChildren();
+    if (!heroSection) {
+        console.error("Hero section not found in the DOM. Cannot load storyboard.");
+        return;
+    }
 
-    // Check if a slideshow stage already exists
+    // Ensure the project title is properly formatted
+    const projectTitle = project.title?.trim();
+    if (!projectTitle) {
+        console.error("Invalid project title. Cannot load storyboard.");
+        return;
+    }
+
+    // ---------------------- Check for Existing Stage ----------------------
     const existingStage = document.querySelector(".stage_container");
 
     if (existingStage) {
         // If the existing stage already contains this project, do nothing
-        if (existingStage.dataset.activeProject === project.title) {
-            return; // Exit function since no updates are required
+        if (existingStage.dataset.activeProject === projectTitle) {
+            console.log(`Storyboard project "${projectTitle}" is already loaded. No action taken.`);
+            return;
         }
 
         // Otherwise, reinitialize the slideshow with the new project
+        console.log(`Replacing existing storyboard with "${projectTitle}".`);
+        existingStage.dataset.activeProject = projectTitle; // Track loaded project
         initializeSlideshow(project);
         return;
     }
 
-    // No existing stage found, so create a new one and initialize the slideshow
+    // ---------------------- Proceed with Slideshow Creation ----------------------
+    console.log(`Setting up new storyboard stage for "${projectTitle}".`);
+    
+    // Clear hero section to prepare for the new layout
+    heroSection.replaceChildren();
+
+    // Create and initialize the slideshow stage
     createSlideshowStage(project);
+
+    // Assign the new project to the dataset
+    document.querySelector(".stage_container").dataset.activeProject = projectTitle;
+
+    // Start the slideshow
     initializeSlideshow(project);
+
+    console.log(`🎬 Storyboard "${projectTitle}" successfully loaded.`);
 }
+
 
 
 
@@ -48,7 +76,7 @@ function load_storyboard(project) {
  * Creates and initializes the slideshow stage inside the hero section.
  * 
  * This function dynamically generates the necessary elements for displaying
- * a project's slideshow, including title, stage, instructions, and controls.
+ * a storyboard project's slideshow, including title, stage, instructions, and controls.
  *
  * @param {Object} project - JSON object containing project data.
  */

@@ -20,6 +20,7 @@
     /* 🖼️ Other */
     --spacing: 16px; /* Base spacing unit */
     --thin-border: 1px solid var(--border-color);
+    --unused: #1a1a1a;
 }
 
 
@@ -364,6 +365,11 @@ main {
     font-size: 20px;
 }
 
+.hidden {
+    display: none;
+}
+
+
 /* ================================
    📖 COMICS LAYOUT
    ================================ */
@@ -377,8 +383,7 @@ main {
 
 .comic_stage {
     width: 80vw; /* Fixed size of a spread */
-    height: auto;
-    max-width: 1800px; /* Prevents it from becoming too large */
+    max-width: 1800px; /* Prevents too large expansion */
     aspect-ratio: 10 / 7.73; /* Matches double-page layout */
     position: relative;
     display: flex;
@@ -388,9 +393,14 @@ main {
     border: 1px solid #444;
 }
 
+/* Spread View */
+.comic_stage.spread .comic_page {
+    width: 50%; /* Each page takes up half */
+}
+
 .comic_page {
     position: absolute;
-    width: 49.93%; /* Each page takes up half the spread - with very little gap*/
+    width: 50%; /* Each page takes up half the spread - with very little gap*/
     max-width: 900px;
     height: auto;
     object-fit: contain;
@@ -398,10 +408,12 @@ main {
 
 .comic_page.left {
     left: 0;
+    border-right: 1px solid #444;
 }
 
 .comic_page.right {
     right: 0;
+    border-left: 1px solid #444;
 }
 
 .comic_page.centered {
@@ -409,8 +421,10 @@ main {
     max-width: 900px;
 }
 
-.hidden {
-    display: none;
+/* Single Page View */
+.comic_stage.single-page .comic_page {
+    width: 60%; /* Centered larger */
+    max-width: 900px;
 }
 
 
@@ -453,6 +467,7 @@ main {
 /* Slideshow Navigation Buttons */
 .controls {
     display: flex;
+    align-items: center;
     justify-content: center;
     gap: 10px;
     margin-top: var(--spacing);

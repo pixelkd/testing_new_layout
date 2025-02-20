@@ -432,7 +432,7 @@ const projectData = {
             },
             {
                 "title": "Lost Worlds",
-                "type": "pages",
+                "type": "cover-style",
                 "icon": "images/v_p_card.jpg",
                 "imageSequence": [
 					"images/comics/v_p14.jpg",

@@ -48,6 +48,7 @@ function load_comic(project) {
 
         // Initialize the new comic project
         initializeComic(project);
+        updateNavigationControls();
         return;
     }
 
@@ -175,15 +176,19 @@ function createComicsLayout(project){
     const navButtonsContainer = document.createElement("div");
     navButtonsContainer.classList.add("nav_buttons");
 
+    // Previous Page Button
     const prev_page_bttn = document.createElement("button");
     prev_page_bttn.id = "prev-page";
     prev_page_bttn.textContent = "◀ Prev";
-    navButtonsContainer.appendChild(prev_page_bttn);
+    prev_page_bttn.addEventListener("click", moveToPreviousPage);  // Attach Event Listener
+    controlsContainer.appendChild(prev_page_bttn);
 
+    // Next Page Button
     const next_page_bttn = document.createElement("button");
     next_page_bttn.id = "next-page";
     next_page_bttn.textContent = "Next ▶";
-    navButtonsContainer.appendChild(next_page_bttn);
+    next_page_bttn.addEventListener("click", moveToNextPage);  // Attach Event Listener
+    controlsContainer.appendChild(next_page_bttn);
 
 
     // ---------------------- Append Elements to DOM ----------------------
@@ -202,34 +207,6 @@ function createComicsLayout(project){
     const preferredLayout = localStorage.getItem("comicLayout") || "spread";
     //applyComicLayout(preferredLayout);
 }
-
-
-function toggleComicLayout(event) {
-    const comicStage = document.querySelector(".comic_stage");
-    const toggleLabel = document.querySelector(".toggle_label");
-    const toggleInput = event.target;
-
-    if (!comicStage || !toggleLabel) return;
-
-    if (toggleInput.checked) {
-        // Switch to Spread Mode
-        comicStage.classList.remove("single-page");
-        comicStage.classList.add("spread");
-        toggleLabel.textContent = "Spread";
-        localStorage.setItem("comicLayout", "spread");
-    } else {
-        // Switch to Single Page Mode
-        comicStage.classList.remove("spread");
-        comicStage.classList.add("single-page");
-        toggleLabel.textContent = "Single";
-        localStorage.setItem("comicLayout", "single-page");
-    }
-
-    // Re-render the current page/pair
-    renderComicPage(activePairIndex);
-}
-
-
 
 function initializeComic(project){
     console.log(`Called to initialize comics project ${project.title}`);
@@ -355,6 +332,124 @@ function renderComicPage(toRender) {
 }
 
 
+function toggleComicLayout(event) {
+    const comicStage = document.querySelector(".comic_stage");
+    const toggleLabel = document.querySelector(".toggle_label");
+    const toggleInput = event.target;
+
+    if (!comicStage || !toggleLabel) return;
+
+    if (toggleInput.checked) {
+        // Switch to Spread Mode
+        comicStage.classList.remove("single-page");
+        comicStage.classList.add("spread");
+        toggleLabel.textContent = "Spread";
+        localStorage.setItem("comicLayout", "spread");
+    } else {
+        // Switch to Single Page Mode
+        comicStage.classList.remove("spread");
+        comicStage.classList.add("single-page");
+        toggleLabel.textContent = "Single";
+        localStorage.setItem("comicLayout", "single-page");
+    }
+
+    // Re-render the current page/pair
+    renderComicPage(activePairIndex);
+}
+
+/**
+ * Moves to the next page or pair in the comic layout.
+ * 
+ * - In Spread Mode: Advances to the next pair.
+ * - In Single Page Mode: Advances to the next page in the pair, then to the next pair.
+ */
+function moveToNextPage() {
+    const isSpreadMode = localStorage.getItem("comicLayout") === "spread";
+
+    if (isSpreadMode) {
+        // In Spread Mode, advance to the next pair
+        if (activePairIndex < pairedPages.length - 1) {
+            activePairIndex++;
+            renderComicPage(activePairIndex);
+        }
+    } else {
+        // In Single Page Mode, advance within the current pair first
+        if (activePageIndex < 1) {
+            activePageIndex++;
+        } else if (activePairIndex < pairedPages.length - 1) {
+            activePairIndex++;
+            activePageIndex = 0;
+        }
+        renderComicPage(activePairIndex);
+    }
+
+    updateNavigationControls();
+}
+
+/**
+ * Moves to the previous page or pair in the comic layout.
+ * 
+ * - In Spread Mode: Moves to the previous pair.
+ * - In Single Page Mode: Moves to the previous page in the pair, then to the previous pair.
+ */
+function moveToPreviousPage() {
+    const isSpreadMode = localStorage.getItem("comicLayout") === "spread";
+
+    if (isSpreadMode) {
+        // In Spread Mode, move to the previous pair
+        if (activePairIndex > 0) {
+            activePairIndex--;
+            renderComicPage(activePairIndex);
+        }
+    } else {
+        // In Single Page Mode, move within the current pair first
+        if (activePageIndex > 0) {
+            activePageIndex--;
+        } else if (activePairIndex > 0) {
+            activePairIndex--;
+            activePageIndex = 1;
+        }
+        renderComicPage(activePairIndex);
+    }
+
+    updateNavigationControls();
+}
+
+/**
+ * Updates the visibility of navigation buttons based on the current page state.
+ * 
+ * - Hides the Prev button on the first page.
+ * - Hides the Next button on the last page.
+ */
+function updateNavigationControls() {
+    const prevButton = document.getElementById("prev-page");
+    const nextButton = document.getElementById("next-page");
+
+    // Check if in Spread Mode or Single Page Mode
+    const isSpreadMode = localStorage.getItem("comicLayout") === "spread";
+
+    // Hide Prev Button on First Page
+    if (activePairIndex === 0 && activePageIndex === 0) {
+        prevButton.style.visibility = "hidden";
+    } else {
+        prevButton.style.visibility = "visible";
+    }
+
+    // Hide Next Button on Last Page
+    if (isSpreadMode) {
+        if (activePairIndex >= pairedPages.length - 1) {
+            nextButton.style.visibility = "hidden";
+        } else {
+            nextButton.style.visibility = "visible";
+        }
+    } else {
+        if (activePairIndex >= pairedPages.length - 1 && activePageIndex === 1) {
+            nextButton.style.visibility = "hidden";
+        } else {
+            nextButton.style.visibility = "visible";
+        }
+    }
+}
 // Run function on page load
 window.addEventListener("load", updateComicStageSize);
 

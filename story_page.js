@@ -18,19 +18,20 @@ const SWIPE_SENSITIVITY = 20; // Pixels per frame change
  *    @property {string} project.title - The title of the storyboard project.
  */
 function load_storyboard(project) {
-    // Select the hero section where the slideshow will be displayed
     console.log(`Storyboard project ${project.title} selected.`);
+
+    // ---------------------- Check Hero Section ----------------------
     const heroSection = document.querySelector(".hero");
 
     if (!heroSection) {
-        console.error("Hero section not found in the DOM. Cannot load storyboard.");
+        console.error("❌ Hero section not found in the DOM. Cannot load storyboard.");
         return;
     }
 
     // Ensure the project title is properly formatted
     const projectTitle = project.title?.trim();
     if (!projectTitle) {
-        console.error("Invalid project title. Cannot load storyboard.");
+        console.error("❌ Invalid project title. Cannot load storyboard.");
         return;
     }
 
@@ -45,7 +46,8 @@ function load_storyboard(project) {
         }
 
         // Otherwise, reinitialize the slideshow with the new project
-        console.log(`Replacing existing storyboard with "${projectTitle}".`);
+        const previousProject = existingStage.dataset.activeProject || "None";
+        console.log(`Replacing existing storyboard project("${previousProject}") with "${projectTitle}".`);
         existingStage.dataset.activeProject = projectTitle; // Track loaded project
         initializeSlideshow(project);
         return;
@@ -63,7 +65,7 @@ function load_storyboard(project) {
     // Assign the new project to the dataset
     document.querySelector(".stage_container").dataset.activeProject = projectTitle;
 
-    // Start the slideshow
+    // Load in the storyboard project
     initializeSlideshow(project);
 
     console.log(`🎬 Storyboard "${projectTitle}" successfully loaded.`);

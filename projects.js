@@ -390,7 +390,7 @@ const projectData = {
         "projects": [
             {
                 "title": "Goblin Universe",
-                "type": "cover-style",
+                "type": "in_medias_res",
                 "icon": "images/GU_card.jpg",
                 "imageSequence": [
 					"images/comics/appleOfEvile_01.jpg",

@@ -1,6 +1,7 @@
 let pairedPages = [];     // Stores paired pages
 let activePairIndex = 0;  // Tracks the current pair index
 let activePageIndex = 0;  // Tracks the active page in the pair (0 or 1)
+let coverStyle = false;
 
 /**
  * Loads a comic project into the hero section.
@@ -48,7 +49,7 @@ function load_comic(project) {
 
         // Initialize the new comic project
         initializeComic(project);
-        updateNavigationControls();
+        updateComicControls();
         return;
     }
 
@@ -72,7 +73,8 @@ function load_comic(project) {
 
     // Load the comic project
     initializeComic(project);
-
+    updateComicControls();
+    
     console.log(`Comics project "${projectTitle}" successfully loaded.`);
 }
 
@@ -125,7 +127,7 @@ function createComicsLayout(project){
         createPlaceholder("placeholder", 500, 773) // Right placeholder
     ];
 
-    const pairedPlaceholders = createPagePairs(mockSequence, "cover-style");
+    const pairedPlaceholders = createPagePairs(mockSequence);
 
     // Create image elements for the placeholder pair
     const leftImage = document.createElement("img");
@@ -152,13 +154,14 @@ function createComicsLayout(project){
 
     const toggleLabel = document.createElement("label");
     toggleLabel.classList.add("toggle_label");
-    toggleLabel.textContent = "Spread"; // Default state
+    toggleLabel.textContent = (localStorage.getItem("comicLayout") === "spread") ? "Spread": "Single" ; // Default state
 
     const toggleInput = document.createElement("input");
     toggleInput.type = "checkbox";
     toggleInput.id = "toggle-view";
     toggleInput.classList.add("toggle_input");
-    toggleInput.checked = true; // Default to Spread mode
+
+    toggleInput.checked = (localStorage.getItem("comicLayout") === "spread") ? true : false ;
     toggleInput.addEventListener("change", toggleComicLayout);
 
     const toggleSwitch = document.createElement("span");
@@ -180,6 +183,7 @@ function createComicsLayout(project){
     const prev_page_bttn = document.createElement("button");
     prev_page_bttn.id = "prev-page";
     prev_page_bttn.textContent = "◀ Prev";
+    prev_page_bttn.style.visibility = "hidden";
     prev_page_bttn.addEventListener("click", moveToPreviousPage);  // Attach Event Listener
     controlsContainer.appendChild(prev_page_bttn);
 
@@ -211,7 +215,6 @@ function createComicsLayout(project){
 function initializeComic(project){
     console.log(`Called to initialize comics project ${project.title}`);
 
-    //---------------------- Place Project Title ----------------------
     // ---------------------- Update Project Title ----------------------
     const projectTitle = document.querySelector(".project_title h2");
 
@@ -222,8 +225,12 @@ function initializeComic(project){
 
     projectTitle.textContent = project.title || "Untitled Project"; // Use title or fallback
 
+    if (project.type === "cover-style"){
+        coverStyle = true;
+    } else {coverStyle = false;}
+
     // Pair pages based on project type
-    pairedPages =  createPagePairs(project.imageSequence, project.type);
+    pairedPages =  createPagePairs(project.imageSequence);
 
     // Render the first pair
     renderComicPage(activePairIndex);
@@ -241,12 +248,12 @@ function initializeComic(project){
  * @param {String} type - Type of comic project ("cover-style" or "in_medias_res").
  * @returns {Array} pairedPages - Array of objects containing pairs and activeIndex.
  */
-function createPagePairs(imageSequence, type) {
+function createPagePairs(imageSequence) {
     let pairedPages = [];
     let sequence = [...imageSequence]; // Create a copy of the image sequence
 
     // ---------------------- 1. Handle Cover Style ----------------------
-    if (type === "cover-style") {
+    if (coverStyle) {
         // Add placeholder at the beginning for cover-style
         sequence.unshift(createPlaceholder("custom", 500, 773));
     }
@@ -263,7 +270,7 @@ function createPagePairs(imageSequence, type) {
         let pair = [sequence[i], sequence[i + 1]];
 
         // Check if it's the first pair for cover-style
-        let activeIndex = (type === "cover-style" && i === 0) ? 1 : 0;
+        let activeIndex = (coverStyle === true && i === 0) ? 1 : 0;
 
         // Store pair with activeIndex
         pairedPages.push({
@@ -305,30 +312,46 @@ function renderComicPage(toRender) {
         return;
     }
 
-    // Clear existing images
-    comicStage.innerHTML = "";
-
     // Determine layout mode
     const isSpreadMode = localStorage.getItem("comicLayout") === "spread";
 
+    // ---------------------- Spread Mode ----------------------
     if (isSpreadMode) {
-        // Spread Mode: Show both pages
+        // Clear and re-render both pages for the spread
+        comicStage.innerHTML = "";
+
         currentPair.pair.forEach((pageSrc, index) => {
             const pageImage = document.createElement("img");
             pageImage.classList.add("comic_page", index === 0 ? "left" : "right");
             pageImage.src = pageSrc;
             comicStage.appendChild(pageImage);
         });
-    } else {
-        // Single Page Mode: Show the active page of the pair
-        const activePageSrc = currentPair.pair[currentPair.activeIndex];
-        const pageImage = document.createElement("img");
-        pageImage.classList.add("comic_page", "centered");
-        pageImage.src = activePageSrc;
-        comicStage.appendChild(pageImage);
     }
 
-    console.log(`📖 Rendered Pair Index: ${toRender}, Active Index: ${currentPair.activeIndex}`);
+    // ---------------------- Signle Page Mode ------------------------
+    else {
+        // If active page is already displayed, do nothing
+        const currentDisplayed = document.querySelector(".comic_page.centered");
+        if (currentDisplayed && currentDisplayed.src === currentPair.pair[activePageIndex]) {
+            return;
+        }
+
+        // Otherwise, clear and re-render the active page
+        comicStage.innerHTML = "";
+
+        const activePageSrc = currentPair.pair[activePageIndex];
+        const pageImage = document.createElement("img");
+        pageImage.classList.add("comic_page"); // Currently missing class ID "centered", due to css issues with Class
+        pageImage.src = activePageSrc;
+        comicStage.appendChild(pageImage);
+
+        // ------------------------ Update Navigation Controls ------------
+
+        updateComicControls();
+
+        console.log(`📖 Rendered Pair Index: ${toRender}, Active Index: ${currentPair.activeIndex}`);
+    }
+
 }
 
 
@@ -355,6 +378,7 @@ function toggleComicLayout(event) {
 
     // Re-render the current page/pair
     renderComicPage(activePairIndex);
+    updateComicControls();
 }
 
 /**
@@ -371,6 +395,7 @@ function moveToNextPage() {
         if (activePairIndex < pairedPages.length - 1) {
             activePairIndex++;
             renderComicPage(activePairIndex);
+            activePageIndex = 0;
         }
     } else {
         // In Single Page Mode, advance within the current pair first
@@ -383,7 +408,7 @@ function moveToNextPage() {
         renderComicPage(activePairIndex);
     }
 
-    updateNavigationControls();
+    updateComicControls();
 }
 
 /**
@@ -395,24 +420,39 @@ function moveToNextPage() {
 function moveToPreviousPage() {
     const isSpreadMode = localStorage.getItem("comicLayout") === "spread";
 
+    // ---------------------- Spread Mode ----------------------
     if (isSpreadMode) {
-        // In Spread Mode, move to the previous pair
+        // Move to Previous Pair if Possible
         if (activePairIndex > 0) {
             activePairIndex--;
+
+            // Check if First Page of Pair is a Placeholder
+            const currentPair = pairedPages[activePairIndex];
+            if (isSVGPlaceholder(currentPair.pair[0])) {
+                activePageIndex = 1; // Skip Placeholder, Show Second Page
+            } else {
+                activePageIndex = 0; // Otherwise, Show First Page
+            }
             renderComicPage(activePairIndex);
         }
-    } else {
-        // In Single Page Mode, move within the current pair first
+    }
+    // ---------------------- Single Page Mode ----------------------
+    else {
+        // Move within the Current Pair First
         if (activePageIndex > 0) {
             activePageIndex--;
-        } else if (activePairIndex > 0) {
-            activePairIndex--;
-            activePageIndex = 1;
         }
+        // Otherwise, Move to the Previous Pair
+        else if (activePairIndex > 0) {
+            activePairIndex--;
+            activePageIndex = 1; // Go to Second Page of Previous Pair
+        }
+
         renderComicPage(activePairIndex);
     }
 
-    updateNavigationControls();
+    // Update Navigation Controls
+    updateComicControls();
 }
 
 /**
@@ -421,12 +461,28 @@ function moveToPreviousPage() {
  * - Hides the Prev button on the first page.
  * - Hides the Next button on the last page.
  */
-function updateNavigationControls() {
+function updateComicControls() {
     const prevButton = document.getElementById("prev-page");
     const nextButton = document.getElementById("next-page");
 
     // Check if in Spread Mode or Single Page Mode
     const isSpreadMode = localStorage.getItem("comicLayout") === "spread";
+
+    // Get the current spread and page index
+    const currentPair = pairedPages[activePairIndex];
+
+    // Helper to check if a page is a placeholder
+    const isPlaceholder = (page) => {
+        return page && page.includes("data:image/svg+xml;base64");
+    };
+    
+    const rightPlaceholder = isSVGPlaceholder(currentPair.pair[1]);
+    const leftPlaceholder = isSVGPlaceholder(currentPair.pair[0]);
+
+    // ---------------------- Spread Mode ----------------------
+    console.log(`👩🏽‍🤝‍👩🏻 active pair index ${activePairIndex} `);
+    console.log(rightPlaceholder);
+        
 
     // Hide Prev Button on First Page
     if (activePairIndex === 0 && activePageIndex === 0) {
@@ -449,9 +505,28 @@ function updateNavigationControls() {
             nextButton.style.visibility = "visible";
         }
     }
+
+    // ------------------------ Dealing with placeholders ------------------------
+    if (rightPlaceholder){
+            nextButton.style
+        .visibility = "hidden";
+    }
+
+    if (leftPlaceholder){
+        prevButton.style
+    .visibility = "hidden";
+    }
 }
+
+
+
 // Run function on page load
-window.addEventListener("load", updateComicStageSize);
+// window.addEventListener("load", updateComicStageSize);
 
 // Run function on resize to adapt dynamically
-window.addEventListener("resize", updateComicStageSize);
+// window.addEventListener("resize", updateComicStageSize);
+
+// Check if a given image source is an SVG placeholder
+function isSVGPlaceholder(imageSrc) {
+    return imageSrc.includes("data:image/svg+xml;base64");
+}

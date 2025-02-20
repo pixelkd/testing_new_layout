@@ -49,7 +49,7 @@ function load_storyboard(project) {
         const previousProject = existingStage.dataset.activeProject || "None";
         console.log(`Replacing existing storyboard project("${previousProject}") with "${projectTitle}".`);
         existingStage.dataset.activeProject = projectTitle; // Track loaded project
-        initializeSlideshow(project);
+        loadStoryboard(project);
         return;
     }
 
@@ -58,15 +58,22 @@ function load_storyboard(project) {
     
     // Clear hero section to prepare for the new layout
     heroSection.replaceChildren();
+    console.log("hero cleared");
 
     // Create and initialize the slideshow stage
-    createSlideshowStage(project);
+    initializeStoryStage(project);
+    console.log("stage created");
+
+    // Load in the storyboard project
+    console.log("calling initialize slideshow...");
+    loadStoryboard(project);
+    console.log("Slideshow loaded");
+
+    
 
     // Assign the new project to the dataset
     document.querySelector(".stage_container").dataset.activeProject = projectTitle;
 
-    // Load in the storyboard project
-    initializeSlideshow(project);
 
     console.log(`🎬 Storyboard "${projectTitle}" successfully loaded.`);
 }
@@ -82,7 +89,7 @@ function load_storyboard(project) {
  *
  * @param {Object} project - JSON object containing project data.
  */
-function createSlideshowStage(project) {
+function initializeStoryStage(project) {
     // Select the hero section where the slideshow will be added
     const heroSection = document.querySelector(".hero");
     if (!heroSection) {
@@ -138,31 +145,41 @@ function createSlideshowStage(project) {
     prev_button.id = "prev";
     prev_button.textContent = "← Prev";
     prev_button.addEventListener("click", moveToPreviousImage);
+    prev_button.style.visibility = "visible";
     controls.appendChild(prev_button);
+    console.log("appended to controls.");
+    console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
 
     // Next button
     const next_button = document.createElement("button");
     next_button.id = "next";
     next_button.textContent = "Next →";
     next_button.addEventListener("click", moveToNextImage);
+    next_button.style.visibility = "visible";
     controls.appendChild(next_button);
+    console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
+    
 
     // Restart button
     const restart_button = document.createElement("button");
     restart_button.id = "restart";
     restart_button.textContent = "Restart";
     restart_button.addEventListener("click", restartSlideshow);
+    restart_button.style.visibility = "visible";
+
     controls.appendChild(restart_button);
+    console.log("storyboard restart sequence button created, style visibility set to visible, and appended to controls.");
 
     // ---------------------- Append Elements to DOM ----------------------
     heroSection.appendChild(projectTitle);
     heroSection.appendChild(stageContainer);
+    console.log("stage container appended to hero section.");
 
     stageContainer.appendChild(instructions_div);
     stageContainer.appendChild(stage);
     stageContainer.appendChild(controls);
+    console.log("controls appended to stage container.");
 
-    updateNavigationControls();
 }
 
 
@@ -176,16 +193,18 @@ function createSlideshowStage(project) {
  *    @property {string} project.title - The title of the project.
  *    @property {Array} project.imageSequence - An array of image URLs for the slideshow.
  */
-function initializeSlideshow(project) {
+function loadStoryboard(project) {
+    console.log("opening slideshow");
     // ---------------------- Update Project Title ----------------------
     const projectTitle = document.querySelector(".project_title h2");
-
+    
     if (!projectTitle) {
         console.error("Project title element not found in the DOM.");
         return;
     }
 
     projectTitle.textContent = project.title || "Untitled Project"; // Use title or fallback
+    console.log("Project title set");
 
     // ---------------------- Set Initial Slideshow Image ----------------------
     // Store image sequence globally
@@ -210,8 +229,11 @@ function initializeSlideshow(project) {
     }
 
     // ---------------------- Initialize Navigation and Preloading ----------------------
-    updateNavigationControls(); // Ensure correct button visibility at start
     preloadImages(); // Preload nearby images
+    console.log("Images preloaded. updating controls next....");
+
+    updateStoryControls(); // Ensure correct button visibility at start
+    console.log("Update controls completed");
 }
 
 
@@ -229,7 +251,7 @@ function moveToPreviousImage() {
     currentImageIndex--; // Move to the previous image
     updateSlideshowImage();
 
-    updateNavigationControls(); // Update button visibility
+    updateStoryControls(); // Update button visibility
     preloadImages(); // Preload adjacent images
 }
 
@@ -246,7 +268,7 @@ function moveToNextImage() {
     currentImageIndex++; // Move to the next image
     updateSlideshowImage();
 
-    updateNavigationControls(); // Update button visibility
+    updateStoryControls(); // Update button visibility
     preloadImages(); // Preload adjacent images
 }
 
@@ -263,7 +285,7 @@ function restartSlideshow() {
     currentImageIndex = 0; // Reset to first image
     updateSlideshowImage();
 
-    updateNavigationControls(); // Update button visibility
+    updateStoryControls(); // Update button visibility
     preloadImages(); // Preload images after resetting
 }
 
@@ -290,7 +312,9 @@ function updateSlideshowImage() {
  * - Hides "Next" when viewing the last image.
  * - Ensures buttons are visible when needed.
  */
-function updateNavigationControls() {
+function updateStoryControls() {
+    console.log("called update navigation controls");
+    
     const prevButton = document.getElementById("prev");
     const nextButton = document.getElementById("next");
     const restartButton = document.getElementById("restart");

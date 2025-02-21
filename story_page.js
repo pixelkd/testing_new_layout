@@ -115,7 +115,12 @@ function initializeStoryStage(project) {
     instructions_div.classList.add("instructions");
 
     const instructions_p = document.createElement("p");
-    instructions_p.textContent = "Navigate with the buttons, arrow keys, touch, or clicking the image.";
+    if (isTouchDevice) {
+        instructions_p.textContent = "Tap or swip to advance sequence.";
+    } else {
+        instructions_p.textContent = "Navigate with the buttons, arrow keys, touch, or clicking the image.";
+    }
+    
     instructions_div.appendChild(instructions_p);
 
     // ---------------------- Slideshow Stage ----------------------

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
  * Ensures all related functions execute as if manually clicked.
  */
 function loadDefaultSection() {
-    let tempToggle = 1;
+    let tempToggle = 0;
     const storyboardsLink = document.getElementById('nav-storyboards');
     //nav-comics
     const comicsLink = document.getElementById('nav-comics');

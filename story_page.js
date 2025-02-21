@@ -110,6 +110,12 @@ function initializeStoryStage(project) {
     const stageContainer = document.createElement("div");
     stageContainer.classList.add("stage_container");
 
+    stageContainer.addEventListener("wheel", handleScrollNavigation);
+    stageContainer.addEventListener("touchstart", handleTouchStart, { passive: true });
+    stageContainer.addEventListener("touchmove", handleTouchMove, { passive: true });
+    stageContainer.addEventListener("touchend", handleTouchEnd, { passive: true });
+    stageContainer.addEventListener("click", moveToNextImage);
+    document.addEventListener("keydown", handleKeyPress);
     // ---------------------- Instructions ----------------------
     const instructions_div = document.createElement("div");
     instructions_div.classList.add("instructions");

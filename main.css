@@ -966,12 +966,28 @@ main {
     }
 
     .footer-container {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
+        row-gap: 0px; /* Vertical spacing */
     }
 
+
     .footer-section {
-        padding: 5px;
+        row-gap: 0px;
+    }
+
+    .footer-section.copyright{
+        font-size: 10px;
+        row-gap: 0px;
+    }
+    .footer-section.contact a{
+        font-size: 12px;
+    }
+
+    .footer-section.social img {
+        width: 12px; /* Smaller icons */
+        height: 12px;
+        gap: 5px;
     }
 }
 

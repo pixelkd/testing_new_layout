@@ -126,8 +126,6 @@ function initializeStoryStage(project) {
     } else {
         instructions_p.textContent = "Navigate with the buttons, arrow keys, touch, or clicking the image.";
     }
-    
-    if(isLandscape && isTouchDevice){instructions_p.textContent = "Landscape mode detected.";}
 
     instructions_div.appendChild(instructions_p);
 
@@ -514,3 +512,8 @@ function advanceFrames(frames, forward) {
         }, i * delay);
     }
 }
+
+
+
+// Janky Test Region
+if(isLandscape && isT){instructions_p.textContent = "Landscape mode detected.";}

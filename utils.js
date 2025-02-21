@@ -69,3 +69,12 @@ function preventDoubleTapZoom(element) {
         }
     });
 }
+
+const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+if (isTouchDevice) {
+    // Show swipe instructions
+    console.log("This is a touch-enabled device.");
+} else {
+    // Show scroll wheel instructions
+    console.log("This is not a touch-enabled device.");
+}

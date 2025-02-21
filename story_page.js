@@ -134,8 +134,9 @@ function initializeStoryStage(project) {
     const stageImage = document.createElement("img");
     stageImage.classList.add("project_img");
     stageImage.src = createPlaceholder("placeholder");
-    //preventDoubleTapZoom(stageImage); // <-- Disableing double tap zoom?
-    stageImage.addEventListener("touchend", handleTouchEnd, { passive: false });
+    
+    stageImage.addEventListener("touchend", handleTouchEnd, { passive: false });  // <-- Disableing double tap zoom?
+
     stage.appendChild(stageImage);
 
     // ---------------------- Controls ----------------------
@@ -148,6 +149,9 @@ function initializeStoryStage(project) {
     prev_button.textContent = "← Prev";
     prev_button.addEventListener("click", moveToPreviousImage);
     prev_button.style.visibility = "visible";
+
+    rev_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
+
     controls.appendChild(prev_button);
     console.log("appended to controls.");
     console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
@@ -158,6 +162,7 @@ function initializeStoryStage(project) {
     next_button.textContent = "Next →";
     next_button.addEventListener("click", moveToNextImage);
     next_button.style.visibility = "visible";
+    next_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
     controls.appendChild(next_button);
     console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
     
@@ -168,6 +173,7 @@ function initializeStoryStage(project) {
     restart_button.textContent = "Restart";
     restart_button.addEventListener("click", restartSlideshow);
     restart_button.style.visibility = "visible";
+    restart_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
 
     controls.appendChild(restart_button);
     console.log("storyboard restart sequence button created, style visibility set to visible, and appended to controls.");

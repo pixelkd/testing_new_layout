@@ -154,6 +154,8 @@ button:hover {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    
+    padding-right: 20px;
 }
 
 /* Logo and Email Styling */
@@ -721,15 +723,26 @@ main {
         padding: 0;
     }
 
+    .inner-header {
+        display: grid;
+        grid-template-columns: 1fr 29px;
+        width: 100%;
+        padding-right: 20px;
+    }
+
     .logo-container {
         flex-grow: 1;
     }
-    
+    .logo-container h1 {
+        display: none;
+    }
+
     .nav-bar {
         flex-grow: 1;
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        background-color: #7e1d1d;
     }
 
     .navigation {

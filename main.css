@@ -243,7 +243,9 @@ main {
     max-width: 90vw; /* Ensures it scales well on larger screens */
     padding: 2vw; /* Adjust padding dynamically */
     margin: auto;
-    padding: var(--spacing);
+    padding: 0;
+    margin-top: 0;
+    padding-top: 0;
 }
 
 /* ================================

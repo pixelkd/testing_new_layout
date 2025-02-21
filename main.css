@@ -99,6 +99,7 @@ p {
     cursor: pointer;
     font-size: 16px;
     transition: all 0.2s ease-in-out;
+    touch-action: manipulation;
 }
 
 button:hover {
@@ -670,13 +671,6 @@ main {
 }
 
 
-
-
-
-
-
-
-
 /* Ensure Additional Items Scale for Ultra-Wide Screens */
 @media screen and (min-width: 2560px) { /* 4K+ */
     .additional_project_items {
@@ -885,7 +879,7 @@ main {
         width: 0px; /* Set a fixed width to avoid shifting */
 
     }
-    
+
     .stage_container {
         width: 95%;
         max-width: 90vw; /* Adjusts to viewport width */

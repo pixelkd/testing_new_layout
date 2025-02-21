@@ -516,4 +516,7 @@ function advanceFrames(frames, forward) {
 
 
 // Janky Test Region
-if(isLandscape && isT){instructions_p.textContent = "Landscape mode detected.";}
+window.addEventListener("orientationchange", adjustLayout);
+function adjustLayout(){
+    if(isLandscape && isT){instructions_p.textContent = "Landscape mode detected.";}
+}

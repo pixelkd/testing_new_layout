@@ -160,6 +160,7 @@ function createComicsLayout(project){
     toggleInput.type = "checkbox";
     toggleInput.id = "toggle-view";
     toggleInput.classList.add("toggle_input");
+    localStorage.setItem("comicLayout", "spread");
 
     toggleInput.checked = (localStorage.getItem("comicLayout") === "spread") ? true : false ;
     toggleInput.addEventListener("change", toggleComicLayout);

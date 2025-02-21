@@ -59,6 +59,8 @@ function setupMobileMenu() {
  */
 function NavLinkActivated() {
     const navLinks = document.querySelectorAll(".nav-link");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const navLinksContainer = document.getElementById("nav-links");
 
     navLinks.forEach(link => {
         link.addEventListener("click", function () {
@@ -79,6 +81,13 @@ function NavLinkActivated() {
             } else if (this.id === "nav-comics") {
                 loadProjects("comics_link");
                 updateListLabel("Comics List");
+            }
+
+            // ---------------------- Close Hamburger Menu ----------------------
+            // Only close if we're in mobile view (menu is active)
+            if (navLinksContainer.classList.contains("active")) {
+                navLinksContainer.classList.remove("active");
+                mobileMenu.classList.remove("active");
             }
         });
     });

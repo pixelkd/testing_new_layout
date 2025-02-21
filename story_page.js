@@ -520,22 +520,22 @@ function advanceFrames(frames, forward) {
 /**
  * Updates the DOM to indicate the current orientation.
  */
-function updateOrientationStatus() {
-    if(isTouchDevice){
-        const instructions = document.querySelector(".instructions p");
+// function updateOrientationStatus() {
+//     if(isTouchDevice){
+//         const instructions = document.querySelector(".instructions p");
     
-        if (window.matchMedia("(orientation: landscape)").matches) {
-            instructions.textContent = "Landscape mode detected.";
-        } else {
-            instructions.textContent = "Portrait mode detected.";
-        }
-    }
-}
+//         if (window.matchMedia("(orientation: landscape)").matches) {
+//             instructions.textContent = "Landscape mode detected.";
+//         } else {
+//             instructions.textContent = "Portrait mode detected.";
+//         }
+//     }
+// }
 
-/**
- * Event listener to detect orientation change.
- */
-window.addEventListener("resize", updateOrientationStatus);
+// /**
+//  * Event listener to detect orientation change.
+//  */
+// window.addEventListener("resize", updateOrientationStatus);
 
-// Initial check on page load
-updateOrientationStatus();
+// // Initial check on page load
+// updateOrientationStatus();

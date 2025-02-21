@@ -54,3 +54,18 @@ function createPlaceholder (type, width = 160, height = 90, color = "#1a1a1a", t
     // Convert SVG string to Base64 and return as a data URI
     return `data:image/svg+xml;base64,${btoa(svgString)}`;
 }
+
+// Utility function to prevent double-tap zoom
+function preventDoubleTapZoom(element) {
+    let lastTouchTime = 0;
+    element.addEventListener('touchend', (event) => {
+        const currentTime = new Date().getTime();
+        const timeDifference = currentTime - lastTouchTime;
+        lastTouchTime = currentTime;
+
+        // If the time between touches is short, prevent default behavior
+        if (timeDifference < 300 && timeDifference > 0) {
+            event.preventDefault();
+        }
+    });
+}

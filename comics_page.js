@@ -530,3 +530,13 @@ function updateComicControls() {
 function isSVGPlaceholder(imageSrc) {
     return imageSrc.includes("data:image/svg+xml;base64");
 }
+
+let lastTap = 0;
+document.addEventListener('touchend', function (event) {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if (tapLength < 300 && tapLength > 0) {
+        event.preventDefault();
+    }
+    lastTap = currentTime;
+});

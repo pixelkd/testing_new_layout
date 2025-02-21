@@ -559,6 +559,11 @@ main {
     margin-top: var(--spacing);
 }
 
+.controls.mobile {
+    background-color: #333;
+
+}
+
 /* ================================
    🏗️ ADDITIONAL PROJECT ITEMS
    ================================ */

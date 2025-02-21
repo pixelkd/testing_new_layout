@@ -516,7 +516,10 @@ function advanceFrames(frames, forward) {
 
 
 // Janky Test Region
-window.addEventListener("orientationchange", adjustLayout);
+
 function adjustLayout(){
+    const instructions_p = document.querySelector(".instructions h2");
     if(isLandscape && isT){instructions_p.textContent = "Landscape mode detected.";}
 }
+
+window.addEventListener("orientationchange", adjustLayout);

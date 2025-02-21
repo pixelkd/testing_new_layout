@@ -134,6 +134,7 @@ function initializeStoryStage(project) {
     const stageImage = document.createElement("img");
     stageImage.classList.add("project_img");
     stageImage.src = createPlaceholder("placeholder");
+    preventDoubleTapZoom(stageImage); // <-- Disableing double tap zoom?
     stage.appendChild(stageImage);
 
     // ---------------------- Controls ----------------------

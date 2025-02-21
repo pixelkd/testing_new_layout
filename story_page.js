@@ -141,6 +141,7 @@ function initializeStoryStage(project) {
     // ---------------------- Controls ----------------------
     const controls = document.createElement("div");
     controls.classList.add("controls");
+    controls.addEventListener("touchend", handleTouchEnd, { passive: false });
 
     // Previous button
     const prev_button = document.createElement("button");

@@ -150,7 +150,7 @@ function initializeStoryStage(project) {
     prev_button.addEventListener("click", moveToPreviousImage);
     prev_button.style.visibility = "visible";
 
-    rev_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
+    //rev_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
 
     controls.appendChild(prev_button);
     console.log("appended to controls.");
@@ -162,7 +162,7 @@ function initializeStoryStage(project) {
     next_button.textContent = "Next →";
     next_button.addEventListener("click", moveToNextImage);
     next_button.style.visibility = "visible";
-    next_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
+    //next_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
     controls.appendChild(next_button);
     console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
     
@@ -173,7 +173,7 @@ function initializeStoryStage(project) {
     restart_button.textContent = "Restart";
     restart_button.addEventListener("click", restartSlideshow);
     restart_button.style.visibility = "visible";
-    restart_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
+    //restart_button.addEventListener("touchend", handleTouchEnd, { passive: false }); // <-- Disableing double tap zoom?
 
     controls.appendChild(restart_button);
     console.log("storyboard restart sequence button created, style visibility set to visible, and appended to controls.");
@@ -447,11 +447,11 @@ function handleTouchMove(event) {
     if (framesToMove > 0) {
         for (let i = 0; i < framesToMove; i++) {
             if (accumulatedSwipeDistance > 0) {
-                
-                moveToPreviousImage(); // Move backward
-            } else {
                 moveToNextImage(); // Move forward
-                
+                //
+            } else {
+                moveToPreviousImage(); // Move backward
+                //
             }
         }
 

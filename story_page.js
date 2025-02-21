@@ -149,6 +149,7 @@ function initializeStoryStage(project) {
     prev_button.textContent = "← Prev";
     prev_button.addEventListener("click", moveToPreviousImage);
     prev_button.style.visibility = "visible";
+    prev_button.addEventListener("touchend", handleTouchEnd, { passive: false });
     controls.appendChild(prev_button);
     console.log("appended to controls.");
     console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
@@ -159,6 +160,7 @@ function initializeStoryStage(project) {
     next_button.textContent = "Next →";
     next_button.addEventListener("click", moveToNextImage);
     next_button.style.visibility = "visible";
+    next_button.addEventListener("touchend", handleTouchEnd, { passive: false });
     controls.appendChild(next_button);
     console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
     
@@ -443,9 +445,7 @@ function handleTouchMove(event) {
         for (let i = 0; i < framesToMove; i++) {
             if (accumulatedSwipeDistance > 0) {
                 moveToPreviousImage(); // Move backward
-                
             } else {
-                
                 moveToNextImage(); // Move forward
             }
         }
@@ -489,7 +489,6 @@ function advanceFrames(frames, forward) {
                 
                 moveToPreviousImage();
             } else {
-                
                 moveToNextImage();
             }
         }, i * delay);

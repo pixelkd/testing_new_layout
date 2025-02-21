@@ -447,9 +447,11 @@ function handleTouchMove(event) {
     if (framesToMove > 0) {
         for (let i = 0; i < framesToMove; i++) {
             if (accumulatedSwipeDistance > 0) {
-                moveToNextImage(); // Move forward
-            } else {
+                
                 moveToPreviousImage(); // Move backward
+            } else {
+                moveToNextImage(); // Move forward
+                
             }
         }
 

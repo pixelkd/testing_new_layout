@@ -219,4 +219,3 @@ function handleProjectSelection(selectedItem, project, section) {
 
 
 
-

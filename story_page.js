@@ -135,7 +135,7 @@ function initializeStoryStage(project) {
     stageImage.classList.add("project_img");
     stageImage.src = createPlaceholder("placeholder");
     //preventDoubleTapZoom(stageImage); // <-- Disableing double tap zoom?
-    
+    stageImage.addEventListener("touchend", handleTouchEnd, { passive: false });
     stage.appendChild(stageImage);
 
     // ---------------------- Controls ----------------------

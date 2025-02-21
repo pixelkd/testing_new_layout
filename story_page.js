@@ -517,9 +517,6 @@ function advanceFrames(frames, forward) {
 
 // Janky Test Region
 
-
-window.addEventListener("orientationchange", adjustLayout);
-
 /**
  * Updates the DOM to indicate the current orientation.
  */

@@ -517,9 +517,28 @@ function advanceFrames(frames, forward) {
 
 // Janky Test Region
 
-function adjustLayout(){
-    const instructions_p = document.querySelector(".instructions h2");
-    if(isLandscape && isT){instructions_p.textContent = "Landscape mode detected.";}
-}
 
 window.addEventListener("orientationchange", adjustLayout);
+
+/**
+ * Updates the DOM to indicate the current orientation.
+ */
+function updateOrientationStatus() {
+    if(isTouchDevice){
+        const instructions = document.querySelector(".instructions p");
+    
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            instructions.textContent = "Landscape mode detected.";
+        } else {
+            instructions.textContent = "Portrait mode detected.";
+        }
+    }
+}
+
+/**
+ * Event listener to detect orientation change.
+ */
+window.addEventListener("resize", updateOrientationStatus);
+
+// Initial check on page load
+updateOrientationStatus();

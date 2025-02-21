@@ -114,7 +114,7 @@ function initializeStoryStage(project) {
     stageContainer.addEventListener("touchstart", handleTouchStart, { passive: true });
     stageContainer.addEventListener("touchmove", handleTouchMove, { passive: true });
     stageContainer.addEventListener("touchend", handleTouchEnd, { passive: true });
-    stageContainer.addEventListener("click", moveToNextImage);
+    
     document.addEventListener("keydown", handleKeyPress);
     // ---------------------- Instructions ----------------------
     const instructions_div = document.createElement("div");
@@ -152,7 +152,7 @@ function initializeStoryStage(project) {
     // ---------------------- Controls ----------------------
     const controls = document.createElement("div");
     controls.classList.add("controls");
-    controls.addEventListener("touchend", handleTouchEnd, { passive: false });
+    if (isTouchDevice) { controls.addEventListener("touchend", handleTouchEnd, { passive: false });}
     if (isTouchDevice) { controls.classList.add("mobile");}
 
     // Previous button
@@ -302,6 +302,7 @@ function restartSlideshow() {
     }
 
     currentImageIndex = 0; // Reset to first image
+    if (isTouchDevice) { currentImageIndex--;} //Hacky fix for mobile double tap
     updateSlideshowImage();
 
     updateStoryControls(); // Update button visibility

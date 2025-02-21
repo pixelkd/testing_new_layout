@@ -417,7 +417,7 @@ const projectData = {
             },
             {
                 "title": "Entropy",
-                "type": "pages",
+                "type": "cover-style",
                 "icon": "images/E02_card.jpg",
                 "imageSequence": [
 					"images/comics/E2_18.jpg",

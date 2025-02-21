@@ -186,13 +186,15 @@ function initializeStoryStage(project) {
     restart_button.addEventListener("click", restartSlideshow);
     restart_button.style.visibility = "visible";
 
-    controls.appendChild(restart_button);
+    if(!isTouchDevice){controls.appendChild(restart_button);}
     console.log("storyboard restart sequence button created, style visibility set to visible, and appended to controls.");
 
     // ---------------------- Append Elements to DOM ----------------------
     heroSection.appendChild(projectTitle);
     heroSection.appendChild(stageContainer);
+    
     console.log("stage container appended to hero section.");
+    if(isTouchDevice){heroSection.appendChild(restart_button);}
 
     stageContainer.appendChild(instructions_div);
     stageContainer.appendChild(stage);
@@ -302,7 +304,6 @@ function restartSlideshow() {
     }
 
     currentImageIndex = 0; // Reset to first image
-    if (isTouchDevice) { currentImageIndex--;} //Hacky fix for mobile double tap
     updateSlideshowImage();
 
     updateStoryControls(); // Update button visibility

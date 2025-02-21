@@ -113,7 +113,7 @@ function createComicsLayout(project){
     instructions_div.classList.add("instructions");
 
     const instructions_p = document.createElement("p");
-    instructions_p.textContent = "Tap/click edges to turn pages. Use arrow keys or buttons.";
+    instructions_p.textContent = "";
     instructions_div.appendChild(instructions_p);
 
     // ---------------------- Comic Stage ----------------------

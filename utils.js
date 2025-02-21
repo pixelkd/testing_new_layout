@@ -78,3 +78,12 @@ if (isTouchDevice) {
     // Show scroll wheel instructions
     console.log("This is not a touch-enabled device.");
 }
+
+/**
+ * Checks if the device is in landscape (horizontal) orientation.
+ * 
+ * @returns {boolean} - Returns true if landscape, false if portrait.
+ */
+function isLandscape() {
+    return window.matchMedia("(orientation: landscape)").matches;
+}

@@ -127,6 +127,8 @@ function initializeStoryStage(project) {
         instructions_p.textContent = "Navigate with the buttons, arrow keys, touch, or clicking the image.";
     }
     
+    if(isLandscape && isTouchDevice){instructions_p.textContent = "Landscape mode detected.";}
+
     instructions_div.appendChild(instructions_p);
 
     // ---------------------- Slideshow Stage ----------------------

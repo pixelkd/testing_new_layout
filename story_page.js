@@ -173,8 +173,10 @@ function initializeStoryStage(project) {
     next_button.addEventListener("click", moveToNextImage);
     next_button.style.visibility = "visible";
     next_button.addEventListener("touchend", handleTouchEnd, { passive: false });
+    if (isTouchDevice) { next_button.style.visibility = "hidden";}
     controls.appendChild(next_button);
     console.log("storyboard next panel button created, style visibility set to visible, and appended to controls.");
+    
     
 
     // Restart button
@@ -358,6 +360,8 @@ function updateStoryControls() {
     } else {
         nextButton.style.visibility = "visible";
     }
+    if (isTouchDevice) { nextButton.style.visibility = "hidden";}
+    if (isTouchDevice) { prevButton.style.visibility = "hidden";}
 }
 
 /**

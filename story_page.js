@@ -366,14 +366,20 @@ function updateStoryControls() {
     if (isTouchDevice) { prevButton.style.visibility = "hidden";}
 }
 
-/**
- * Handles scroll navigation for the slideshow.
- * Scroll Up moves to the next image, Scroll Down moves to the previous image.
- *
- * @param {Event} event - The scroll event triggered by the user.
- */
+
+
+
+let lastScrollTime = 0;
+const SCROLL_DELAY = 5; // Delay in milliseconds
+
 function handleScrollNavigation(event) {
     event.preventDefault(); // Prevent page scroll
+
+    const now = Date.now();
+    if (now - lastScrollTime < SCROLL_DELAY) {
+        return; // Ignore rapid scroll events
+    }
+    lastScrollTime = now; // Update last scroll time
 
     if (event.deltaY < 0) {
         moveToNextImage(); // Scroll up → Next Image

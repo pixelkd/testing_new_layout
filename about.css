@@ -1,0 +1,94 @@
+/* ============================= */
+/* 🌟 About Page Styles */
+/* ============================= */
+
+.about-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 40px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.about-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+}
+
+.about-text {
+    flex: 1;
+    max-width: 600px;
+}
+
+.about-text h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.about-text p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* 📜 Resume Section */
+.resume-section {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+.resume-section h2 {
+    font-size: 22px;
+    
+}
+
+.pdf-container {
+
+    height: 500px; /* Adjusted for scrolling */
+    border: var(--thin-border);
+    
+}
+
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+}
+
+/* 🎯 Download Resume Button */
+.download-button {
+    display: inline-block;
+    background: var(--button-bg);
+    color: var(--text-color);
+    border: var(--thin-border);
+    padding: 6px 12px;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background 0.2s ease-in-out;
+}
+
+.download-button:hover {
+    background: var(--button-hover);
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+    .about-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .about-text {
+        max-width: 90%;
+    }
+}
